@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="bg-[#ece3ca]">
+      <html lang="en">
         <Navbar />
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}

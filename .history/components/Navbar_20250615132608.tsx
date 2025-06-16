@@ -1,0 +1,77 @@
+'use client'
+
+import { UserButton } from '@clerk/nextjs'
+import {
+    HandCoins,
+    LayoutDashboard,
+    ListTree,
+    PackagePlus,
+    Receipt,
+    ShoppingBasket,
+    Warehouse,
+    Menu,
+    X,
+} from 'lucide-react'
+import React, { useState } from 'react'
+
+const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleMenu = () => setIsOpen(prev => !prev)
+
+    return (
+        <nav className="border-b shadow-sm">
+            <div className="flex items-center justify-between px-6 py-4 xl:px-40">
+                {/* Logo */}
+                <div className="flex items-center gap-2">
+                    <PackagePlus />
+                    <p className="font-bold text-lg">AssoStock</p>
+                </div>
+
+                {/* Menu toggle (mobile) */}
+                <button
+                    onClick={toggleMenu}
+                    className="xl:hidden text-gray-700 focus:outline-none"
+                >
+                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+
+                {/* Desktop Nav */}
+                <div className="hidden xl:flex items-center gap-6">
+                    <NavItems />
+                    <UserButton />
+                </div>
+            </div>
+
+            {/* Mobile Nav */}
+            {isOpen && (
+                <div className="xl:hidden px-6 pb-4 flex flex-col gap-4">
+                    <NavItems />
+                    <UserButton />
+                </div>
+            )}
+        </nav>
+    )
+}
+
+// Nav items as a reusable component
+const NavItems = () => (
+    <>
+        <NavLink icon={LayoutDashboard} label="Dashboard" />
+        <NavLink icon={ShoppingBasket} label="Products" />
+        <NavLink icon={PackagePlus} label="New Product" />
+        <NavLink icon={ListTree} label="Categories" />
+        <NavLink icon={HandCoins} label="Sell" />
+        <NavLink icon={Receipt} label="Transactions" />
+        <NavLink icon={Warehouse} label="Refill Stock" />
+    </>
+)
+
+const NavLink = ({ icon: Icon, label }: { icon: any; label: string }) => (
+    <div className="flex items-center gap-2 text-gray-700 hover:text-black cursor-pointer">
+        <Icon size={20} />
+        <p>{label}</p>
+    </div>
+)
+
+export default Navbar
