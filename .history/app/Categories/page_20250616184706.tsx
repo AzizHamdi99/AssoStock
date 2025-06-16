@@ -52,32 +52,35 @@ const page = () => {
         </div>)
     }
     return (
-        <div className='md:mx-32 my-10'>
+        <div>
             <Dialog>
                 <form>
-                    <DialogTrigger asChild className=''>
-                        <Button variant="outline" className='bg-[#f7999b] '>Add Category</Button>
+                    <DialogTrigger asChild>
+                        <Button variant="outline">Open Dialog</Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
+                    <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle className='mb-1 font-bold'>Create new category</DialogTitle>
-
+                            <DialogTitle>Edit profile</DialogTitle>
+                            <DialogDescription>
+                                Make changes to your profile here. Click save when you&apos;re
+                                done.
+                            </DialogDescription>
                         </DialogHeader>
-                        <div className="grid gap-4 ">
+                        <div className="grid gap-4">
                             <div className="grid gap-3">
-
-                                <Input id="name-1" name="name" placeholder='Title' />
+                                <Label htmlFor="name-1">Name</Label>
+                                <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
                             </div>
                             <div className="grid gap-3">
-
-                                <Input id="username-1" name="username" placeholder='Description' />
+                                <Label htmlFor="username-1">Username</Label>
+                                <Input id="username-1" name="username" defaultValue="@peduarte" />
                             </div>
                         </div>
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline" className='cursor-pointer'>Cancel</Button>
+                                <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit" className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                            <Button type="submit">Save changes</Button>
                         </DialogFooter>
                     </DialogContent>
                 </form>

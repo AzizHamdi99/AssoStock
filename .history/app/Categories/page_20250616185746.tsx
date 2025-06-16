@@ -75,9 +75,9 @@ const page = () => {
                         </div>
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline" className='cursor-pointer'>Cancel</Button>
+                                <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit" className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                            <Button type="submit" className='bg-[#f7999b]'>Create</Button>
                         </DialogFooter>
                     </DialogContent>
                 </form>

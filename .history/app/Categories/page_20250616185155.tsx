@@ -55,29 +55,29 @@ const page = () => {
         <div className='md:mx-32 my-10'>
             <Dialog>
                 <form>
-                    <DialogTrigger asChild className=''>
-                        <Button variant="outline" className='bg-[#f7999b] '>Add Category</Button>
+                    <DialogTrigger asChild>
+                        <Button variant="outline">Add Category</Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
+                    <DialogContent className="sm:max-w-[425px]">
                         <DialogHeader>
-                            <DialogTitle className='mb-1 font-bold'>Create new category</DialogTitle>
+                            <DialogTitle>Create new category</DialogTitle>
 
                         </DialogHeader>
-                        <div className="grid gap-4 ">
+                        <div className="grid gap-4">
                             <div className="grid gap-3">
-
+                                <Label htmlFor="name-1">Title</Label>
                                 <Input id="name-1" name="name" placeholder='Title' />
                             </div>
                             <div className="grid gap-3">
-
+                                <Label htmlFor="username-1">Description</Label>
                                 <Input id="username-1" name="username" placeholder='Description' />
                             </div>
                         </div>
                         <DialogFooter>
                             <DialogClose asChild>
-                                <Button variant="outline" className='cursor-pointer'>Cancel</Button>
+                                <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit" className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                            <Button type="submit">Create</Button>
                         </DialogFooter>
                     </DialogContent>
                 </form>
