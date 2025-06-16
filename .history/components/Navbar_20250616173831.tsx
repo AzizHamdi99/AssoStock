@@ -13,34 +13,16 @@ import {
     X,
 } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import axios from 'axios'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const pathName = usePathname()
-    const { user, isLoaded } = useUser()
-
-    //console.log(email, name)
+    const user = useUser()
+    console.log(user)
 
     const toggleMenu = () => setIsOpen(prev => !prev)
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            if (!isLoaded || !user) return
-            const name = user.fullName
-            const email = user.emailAddresses[0]?.emailAddress
-            try {
-                await axios.post('/api/checkAuth', { name, email })
-            } catch (error) {
-                console.log("Auth error:", error)
-            }
-        }
-
-        fetchUser()
-    }, [isLoaded, user])
-
 
     return (
         <nav className="border-b-[1px] border-[#cec19d] text-[#7c5b3b]">

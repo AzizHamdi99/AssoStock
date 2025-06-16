@@ -28,19 +28,14 @@ const Navbar = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            if (!isLoaded || !user) return
-            const name = user.fullName
-            const email = user.emailAddresses[0]?.emailAddress
             try {
-                await axios.post('/api/checkAuth', { name, email })
+                const res = await axios.post('/api/checkAuth', { name, email })
             } catch (error) {
-                console.log("Auth error:", error)
+                console.log(error)
             }
         }
-
         fetchUser()
-    }, [isLoaded, user])
-
+    }, [email])
 
     return (
         <nav className="border-b-[1px] border-[#cec19d] text-[#7c5b3b]">

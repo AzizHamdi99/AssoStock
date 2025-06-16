@@ -20,27 +20,23 @@ import axios from 'axios'
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const pathName = usePathname()
-    const { user, isLoaded } = useUser()
-
+    const { user, isl } useUser()
+    const email = user?.user?.emailAddresses[0]?.emailAddress
+    const name = user?.user?.fullName
     //console.log(email, name)
 
     const toggleMenu = () => setIsOpen(prev => !prev)
 
     useEffect(() => {
         const fetchUser = async () => {
-            if (!isLoaded || !user) return
-            const name = user.fullName
-            const email = user.emailAddresses[0]?.emailAddress
             try {
-                await axios.post('/api/checkAuth', { name, email })
+                const res = await axios.post('/api/checkAuth', { name, email })
             } catch (error) {
-                console.log("Auth error:", error)
+                console.log(error)
             }
         }
-
         fetchUser()
-    }, [isLoaded, user])
-
+    }, [email])
 
     return (
         <nav className="border-b-[1px] border-[#cec19d] text-[#7c5b3b]">
