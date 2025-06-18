@@ -89,11 +89,6 @@ const Page = () => {
         }
 
     }
-
-    const handleUpadetCategory = async () => {
-
-
-    }
     useEffect(() => {
         fetchCategory()
     }, [user])
@@ -161,7 +156,7 @@ const Page = () => {
                                         <DialogClose asChild>
                                             <Button variant="outline" className='cursor-pointer'>Cancel</Button>
                                         </DialogClose>
-                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
                                     </DialogFooter>
                                 </DialogContent>
 

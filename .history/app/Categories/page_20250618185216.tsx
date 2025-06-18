@@ -89,11 +89,6 @@ const Page = () => {
         }
 
     }
-
-    const handleUpadetCategory = async () => {
-
-
-    }
     useEffect(() => {
         fetchCategory()
     }, [user])
@@ -134,7 +129,7 @@ const Page = () => {
 
             <div className="mt-6 flex flex-col gap-3 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 shadow-sm text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
+                    <div key={cat._id} className="rounded-md p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
                         <div>
                             <h2 className="font-bold text-xl">{cat.name}</h2>
                             <p>{cat.description}</p>
@@ -143,11 +138,7 @@ const Page = () => {
                             <Dialog>
 
                                 <DialogTrigger asChild className=''>
-                                    <Button variant="outline" className='bg-[#e3d7b4] cursor-pointer' onClick={() => {
-                                        setEditId(cat._id)
-                                        setEditName(cat.name)
-                                        setEditDescription(cat.description)
-                                    }}><Pencil /></Button>
+                                    <Button variant="outline" className='bg-[#e3d7b4] cursor-pointer'><Pencil /></Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
                                     <DialogHeader>
@@ -161,7 +152,7 @@ const Page = () => {
                                         <DialogClose asChild>
                                             <Button variant="outline" className='cursor-pointer'>Cancel</Button>
                                         </DialogClose>
-                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
                                     </DialogFooter>
                                 </DialogContent>
 

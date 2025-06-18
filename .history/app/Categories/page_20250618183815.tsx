@@ -31,10 +31,6 @@ const Page = () => {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
 
-    const [editId, setEditId] = useState<string | null>(null)
-    const [editName, setEditName] = useState("")
-    const [editDescription, setEditDescription] = useState("")
-
     const fetchCategory = async () => {
         if (!user) return
         setLoading(true)
@@ -77,21 +73,11 @@ const Page = () => {
     const handelDeleteCategory = async (id: string) => {
         try {
             const res = await axios.delete(`/api/deleteCategory/${id}`)
-            if (res.status == 200) {
-                toast.success(res.data.message || "Category deleted!")
-                fetchCategory()
-
-            }
         } catch (error) {
             console.error(error)
             toast.error("Failed to deleting category")
 
         }
-
-    }
-
-    const handleUpadetCategory = async () => {
-
 
     }
     useEffect(() => {
@@ -111,7 +97,7 @@ const Page = () => {
             <Dialog>
 
                 <DialogTrigger asChild>
-                    <Button variant="outline" className='bg-[#f7999b] cursor-pointer'>Add Category</Button>
+                    <Button variant="outline" className='bg-[#f7999b]'>Add Category</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
                     <DialogHeader>
@@ -123,9 +109,9 @@ const Page = () => {
                     </div>
                     <DialogFooter>
                         <DialogClose asChild>
-                            <Button variant="outline" className=' cursor-pointer'>Cancel</Button>
+                            <Button variant="outline">Cancel</Button>
                         </DialogClose>
-                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b]'>Create</Button>
                     </DialogFooter>
                 </DialogContent>
 
@@ -134,7 +120,7 @@ const Page = () => {
 
             <div className="mt-6 flex flex-col gap-3 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 shadow-sm text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
+                    <div key={cat._id} className="rounded-md p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
                         <div>
                             <h2 className="font-bold text-xl">{cat.name}</h2>
                             <p>{cat.description}</p>
@@ -143,25 +129,21 @@ const Page = () => {
                             <Dialog>
 
                                 <DialogTrigger asChild className=''>
-                                    <Button variant="outline" className='bg-[#e3d7b4] cursor-pointer' onClick={() => {
-                                        setEditId(cat._id)
-                                        setEditName(cat.name)
-                                        setEditDescription(cat.description)
-                                    }}><Pencil /></Button>
+                                    <Button variant="outline" className='bg-[#e3d7b4]'><Pencil /></Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
                                     <DialogHeader>
                                         <DialogTitle className='mb-1 font-bold'>Update category</DialogTitle>
                                     </DialogHeader>
                                     <div className="grid gap-4">
-                                        <Input placeholder='Title' value={editName} onChange={e => setEditName(e.target.value)} />
-                                        <Input placeholder='Description' value={editDescription} onChange={e => setEditDescription(e.target.value)} />
+                                        <Input placeholder='Title' value={cat.name} onChange={e => setName(e.target.value)} />
+                                        <Input placeholder='Description' value={cat.description} onChange={e => setDescription(e.target.value)} />
                                     </div>
                                     <DialogFooter>
                                         <DialogClose asChild>
-                                            <Button variant="outline" className='cursor-pointer'>Cancel</Button>
+                                            <Button variant="outline">Cancel</Button>
                                         </DialogClose>
-                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b]'>Create</Button>
                                     </DialogFooter>
                                 </DialogContent>
 
@@ -182,7 +164,7 @@ const Page = () => {
                                         <DialogClose asChild>
                                             <Button className='cursor-pointer' variant="outline">Cancel</Button>
                                         </DialogClose>
-                                        <Button type="button" className='cursor-pointer bg-[#fd6265]' onClick={() => handelDeleteCategory(cat._id)}>Delete</Button>
+                                        <Button type="button" className='cursor-pointer bg-[#fd6265]' onClick={handelDelete}>Delete</Button>
                                     </DialogFooter>
                                 </DialogContent>
 

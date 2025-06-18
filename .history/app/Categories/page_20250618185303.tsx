@@ -89,11 +89,6 @@ const Page = () => {
         }
 
     }
-
-    const handleUpadetCategory = async () => {
-
-
-    }
     useEffect(() => {
         fetchCategory()
     }, [user])
@@ -134,7 +129,7 @@ const Page = () => {
 
             <div className="mt-6 flex flex-col gap-3 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 shadow-sm text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
+                    <div key={cat._id} className="rounded-md p-4 shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
                         <div>
                             <h2 className="font-bold text-xl">{cat.name}</h2>
                             <p>{cat.description}</p>
@@ -161,7 +156,7 @@ const Page = () => {
                                         <DialogClose asChild>
                                             <Button variant="outline" className='cursor-pointer'>Cancel</Button>
                                         </DialogClose>
-                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
                                     </DialogFooter>
                                 </DialogContent>
 

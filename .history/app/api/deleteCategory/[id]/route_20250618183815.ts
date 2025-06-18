@@ -11,14 +11,11 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         await connectDb()
         const id = params.id
         const category = await Category.findByIdAndDelete({ _id: id })
-
-
-        if (!category) {
-            return NextResponse.json({ message: "Category not found", status: 404 });
+        if (category) {
+            return NextResponse.json({ message: "Category deleted ", satus: 200 })
         }
 
-        // Supprimer les produits liés à cette catégorie
-        const deletedProducts = await Product.deleteMany({ categoryId: id });
+        const deletedProducts = await Product.deleteMany({ categoryId: id })
 
         return NextResponse.json({
             message: "Category and related products deleted successfully",
