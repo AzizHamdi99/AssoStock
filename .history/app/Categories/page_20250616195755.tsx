@@ -86,7 +86,7 @@ const Page = () => {
     }
 
     return (
-        <div className='mx-4 md:mx-32 my-10'>
+        <div className='md:mx-32 my-10'>
             <Dialog>
 
                 <DialogTrigger asChild>
@@ -113,9 +113,9 @@ const Page = () => {
 
             <div className="mt-6 flex flex-col gap-3 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
+                    <div key={cat._id} className="p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
                         <div>
-                            <h2 className="font-bold text-xl">{cat.name}</h2>
+                            <h2 className="font-bold">{cat.name}</h2>
                             <p>{cat.description}</p>
                         </div>
                         <div className='flex items-center gap-3'>
@@ -142,15 +142,15 @@ const Page = () => {
 
                             </Dialog>
                             <Dialog>
-                                <DialogTrigger className=' bg-[#fd6265] rounded-md p-2 px-2 cursor-pointer'>
+                                <DialogTrigger className=' bg-[#fd6265] rounded-md p-1 px-2 cursor-pointer'>
                                     <Trash2 size={20} />
 
                                 </DialogTrigger>
-                                <DialogContent className='bg-[#ece3ca] text-[#7c5b3b]'>
+                                <DialogContent>
                                     <DialogHeader>
-                                        <DialogTitle className='text-xl font-bold'>Delete category</DialogTitle>
+                                        <DialogTitle>Delete category</DialogTitle>
                                         <DialogDescription>
-                                            Are you sure you want to delete {cat.name} category
+                                            Are you sure you want to delete this {cat.name} category
                                         </DialogDescription>
                                     </DialogHeader>
                                     <DialogFooter>

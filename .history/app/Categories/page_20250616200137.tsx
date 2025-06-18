@@ -86,7 +86,7 @@ const Page = () => {
     }
 
     return (
-        <div className='mx-4 md:mx-32 my-10'>
+        <div className='md:mx-32 my-10'>
             <Dialog>
 
                 <DialogTrigger asChild>

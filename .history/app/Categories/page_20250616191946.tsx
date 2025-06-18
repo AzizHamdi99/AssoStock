@@ -1,14 +1,13 @@
 'use client'
 import { useUser } from '@clerk/nextjs'
 import axios from 'axios'
-import { Loader2, Pencil, Trash2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
     DialogClose,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -70,9 +69,6 @@ const Page = () => {
         }
     }
 
-    const handelDelete = async () => {
-
-    }
     useEffect(() => {
         fetchCategory()
     }, [user])
@@ -86,7 +82,7 @@ const Page = () => {
     }
 
     return (
-        <div className='mx-4 md:mx-32 my-10'>
+        <div className='md:mx-32 my-10'>
             <Dialog>
 
                 <DialogTrigger asChild>
@@ -111,60 +107,11 @@ const Page = () => {
             </Dialog>
 
 
-            <div className="mt-6 flex flex-col gap-3 ">
+            <div className="mt-6 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
-                        <div>
-                            <h2 className="font-bold text-xl">{cat.name}</h2>
-                            <p>{cat.description}</p>
-                        </div>
-                        <div className='flex items-center gap-3'>
-                            <Dialog>
-
-                                <DialogTrigger asChild className=''>
-                                    <Button variant="outline" className='bg-[#e3d7b4]'><Pencil /></Button>
-                                </DialogTrigger>
-                                <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
-                                    <DialogHeader>
-                                        <DialogTitle className='mb-1 font-bold'>Update category</DialogTitle>
-                                    </DialogHeader>
-                                    <div className="grid gap-4">
-                                        <Input placeholder='Title' value={cat.name} onChange={e => setName(e.target.value)} />
-                                        <Input placeholder='Description' value={cat.description} onChange={e => setDescription(e.target.value)} />
-                                    </div>
-                                    <DialogFooter>
-                                        <DialogClose asChild>
-                                            <Button variant="outline">Cancel</Button>
-                                        </DialogClose>
-                                        <Button type="submit" onClick={handleCreateCategory} className='bg-[#f7999b]'>Create</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-
-                            </Dialog>
-                            <Dialog>
-                                <DialogTrigger className=' bg-[#fd6265] rounded-md p-2 px-2 cursor-pointer'>
-                                    <Trash2 size={20} />
-
-                                </DialogTrigger>
-                                <DialogContent className='bg-[#ece3ca] text-[#7c5b3b]'>
-                                    <DialogHeader>
-                                        <DialogTitle className='text-xl font-bold'>Delete category</DialogTitle>
-                                        <DialogDescription>
-                                            Are you sure you want to delete {cat.name} category
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <DialogFooter>
-                                        <DialogClose asChild>
-                                            <Button className='cursor-pointer' variant="outline">Cancel</Button>
-                                        </DialogClose>
-                                        <Button type="button" className='cursor-pointer bg-[#fd6265]' onClick={handelDelete}>Delete</Button>
-                                    </DialogFooter>
-                                </DialogContent>
-
-                            </Dialog>
-
-
-                        </div>
+                    <div key={cat._id} className="bg-[#f6eedd] p-4 rounded shadow text-[#7c5b3b]">
+                        <h2 className="font-bold">{cat.name}</h2>
+                        <p>{cat.description}</p>
                     </div>
                 ))}
             </div>

@@ -86,7 +86,7 @@ const Page = () => {
     }
 
     return (
-        <div className='mx-4 md:mx-32 my-10'>
+        <div className='md:mx-32 my-10'>
             <Dialog>
 
                 <DialogTrigger asChild>
@@ -113,9 +113,9 @@ const Page = () => {
 
             <div className="mt-6 flex flex-col gap-3 ">
                 {categories.map(cat => (
-                    <div key={cat._id} className="rounded-md p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
+                    <div key={cat._id} className="p-4 rounded shadow text-[#7c5b3b] flex items-center justify-between border-[1px] border-[#cec19d]">
                         <div>
-                            <h2 className="font-bold text-xl">{cat.name}</h2>
+                            <h2 className="font-bold">{cat.name}</h2>
                             <p>{cat.description}</p>
                         </div>
                         <div className='flex items-center gap-3'>
