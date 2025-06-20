@@ -12,12 +12,10 @@ import { useCategoryStore } from '@/stores/useCategory'
 import { Camera } from 'lucide-react'
 import Image from 'next/image'
 import { useUser } from '@clerk/nextjs'
-import { useProductStore } from '@/stores/useProduct'
 
 const Page = () => {
     const { getCategories, categories } = useCategoryStore()
     const { user } = useUser()
-    const { addProduct } = useProductStore()
 
     const [selectedImg, setSelectedImg] = useState<string | null>(null)
     const units = ["Gram", "Kilogram", "Liter", "Meter", "Centimeter", "Hour", "Pieces"]
@@ -69,25 +67,14 @@ const Page = () => {
         }))
     }
 
-    const handleSubmit = async () => {
-
-        console.log("Product Data:", data)
-        try {
-            await addProduct(data)
-            setData({
-                name: "",
-                description: "",
-                price: null,
-                unit: "",
-                categoryId: "",
-                imageUrl: null as string | null,
-                associationEmail
-            })
-
-        } catch (error) {
-            console.log(error)
-
+    const handleSubmit = () => {
+        if (user) {
+            setData((prev) => ({
+                ...data,
+                associationEmail: user?.emailAddresses[0].emailAddress
+            }))
         }
+        console.log("Product Data:", data)
 
 
     }
@@ -98,14 +85,10 @@ const Page = () => {
 
     useEffect(() => {
         if (user) {
-            setData((prev) => ({
-                ...prev,
-                associationEmail: user.emailAddresses[0].emailAddress
-            }))
             fetchCategory()
+
         }
     }, [user])
-
 
 
     return (

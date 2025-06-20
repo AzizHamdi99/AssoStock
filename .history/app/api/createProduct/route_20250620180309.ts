@@ -11,24 +11,29 @@ export async function POST(req: NextRequest) {
 
         const { name, description, price, unit, imageUrl, categoryId, associationEmail } = await req.json();
 
+
         if (!name || !description || !price || !unit || !imageUrl || !categoryId || !associationEmail) {
-            return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+            return NextResponse.json({ message: "Missing fields", status: 400 });
         }
+
 
         const association = await Association.findOne({ email: associationEmail });
         if (!association) {
-            return NextResponse.json({ message: "Association not found" }, { status: 404 });
+            return NextResponse.json({ message: "Association not found", status: 404 });
         }
+
 
         const category = await Category.findById(categoryId);
         if (!category) {
-            return NextResponse.json({ message: "Category not found" }, { status: 404 });
+            return NextResponse.json({ message: "Category not found", status: 404 });
         }
+
 
         const uploadResponse = await cloudinary.uploader.upload(imageUrl);
         if (!uploadResponse?.secure_url) {
-            return NextResponse.json({ message: "Image upload failed" }, { status: 500 });
+            return NextResponse.json({ message: "Image upload failed", status: 500 });
         }
+
 
         const newProduct = await Product.create({
             name,
@@ -42,14 +47,16 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             message: "Product created successfully",
-            product: newProduct
-        }, { status: 201 });
+            product: newProduct,
+            status: 201
+        });
 
     } catch (error: any) {
         console.error("Error creating product:", error);
         return NextResponse.json({
             message: "An error occurred while creating the product",
-            error: error.message
-        }, { status: 500 });
+            error,
+            status: 500
+        });
     }
 }

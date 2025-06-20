@@ -12,12 +12,10 @@ import { useCategoryStore } from '@/stores/useCategory'
 import { Camera } from 'lucide-react'
 import Image from 'next/image'
 import { useUser } from '@clerk/nextjs'
-import { useProductStore } from '@/stores/useProduct'
 
 const Page = () => {
     const { getCategories, categories } = useCategoryStore()
     const { user } = useUser()
-    const { addProduct } = useProductStore()
 
     const [selectedImg, setSelectedImg] = useState<string | null>(null)
     const units = ["Gram", "Kilogram", "Liter", "Meter", "Centimeter", "Hour", "Pieces"]
@@ -29,7 +27,7 @@ const Page = () => {
         unit: "",
         categoryId: "",
         imageUrl: null as string | null,
-        associationEmail: ""
+        associationId: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,26 +67,14 @@ const Page = () => {
         }))
     }
 
-    const handleSubmit = async () => {
-
+    const handleSubmit = () => {
         console.log("Product Data:", data)
-        try {
-            await addProduct(data)
-            setData({
-                name: "",
-                description: "",
-                price: null,
-                unit: "",
-                categoryId: "",
-                imageUrl: null as string | null,
-                associationEmail
-            })
-
-        } catch (error) {
-            console.log(error)
-
+        if (user) {
+            setData((prev) => ({
+                ...data,
+                associationId: user?.emailAddresses[0].emailAddress
+            }))
         }
-
 
     }
     const fetchCategory = async () => {
@@ -98,14 +84,13 @@ const Page = () => {
 
     useEffect(() => {
         if (user) {
-            setData((prev) => ({
-                ...prev,
-                associationEmail: user.emailAddresses[0].emailAddress
-            }))
             fetchCategory()
+            setData((prev) => ({
+                ...data,
+                association: user?.emailAddresses[0]?.emailAddress
+            }))
         }
     }, [user])
-
 
 
     return (

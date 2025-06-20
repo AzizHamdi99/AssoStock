@@ -81,7 +81,7 @@ const Page = () => {
                 unit: "",
                 categoryId: "",
                 imageUrl: null as string | null,
-                associationEmail
+                associationEmail: user?.emailAddresses[0].emailAddress
             })
 
         } catch (error) {

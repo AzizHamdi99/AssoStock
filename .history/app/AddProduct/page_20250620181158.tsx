@@ -70,27 +70,37 @@ const Page = () => {
     }
 
     const handleSubmit = async () => {
+        if (!user) return;
 
-        console.log("Product Data:", data)
+        const associationEmail = user.emailAddresses[0].emailAddress
+
+        const finalData = {
+            ...data,
+            associationEmail,
+        }
+
+        console.log("Product Data:", finalData)
+
         try {
-            await addProduct(data)
+            await addProduct(finalData)
+
+
+            setSelectedImg(null)
             setData({
                 name: "",
                 description: "",
                 price: null,
                 unit: "",
                 categoryId: "",
-                imageUrl: null as string | null,
-                associationEmail
+                imageUrl: null,
+                associationEmail,
             })
 
         } catch (error) {
-            console.log(error)
-
+            console.error(error)
         }
-
-
     }
+
     const fetchCategory = async () => {
         if (!user) return
         await getCategories({ email: user?.emailAddresses[0]?.emailAddress })
