@@ -24,17 +24,11 @@ const Page = () => {
         setActiveDropdown(activeDropdown === productId ? null : productId)
     }
 
-    const handleDeleteProduct = async (id: string) => {
+    const handleDeleteProduct = (id: string) => {
+        deleteProduct(id)
+        getProducts(user?.emailAddresses[0].emailAddress as string)
 
-
-        try {
-            await deleteProduct(id);
-            await getProducts(user?.emailAddresses[0].emailAddress as string);
-        } catch (error) {
-            console.error("Failed to delete product:", error);
-        }
-    };
-
+    }
 
     if (loading) {
         return (
@@ -126,7 +120,7 @@ const Page = () => {
                                         <button className="bg-[#fc9c9e] hover:bg-[#f66f75] text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors duration-200">
                                             <Pencil size={12} /> Edit
                                         </button>
-                                        <button className="bg-[#f3e6d4] hover:bg-[#f1d0b5] text-[#802d32] p-1.5 rounded-lg transition-colors duration-200" onClick={() => handleDeleteProduct(product._id)}>
+                                        <button className="bg-[#f3e6d4] hover:bg-[#f1d0b5] text-[#802d32] p-1.5 rounded-lg transition-colors duration-200">
                                             <Trash2 size={14} />
                                         </button>
                                     </div>

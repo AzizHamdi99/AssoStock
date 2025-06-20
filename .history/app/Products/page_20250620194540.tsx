@@ -25,7 +25,8 @@ const Page = () => {
     }
 
     const handleDeleteProduct = async (id: string) => {
-
+        const confirmed = window.confirm("Are you sure you want to delete this product?");
+        if (!confirmed) return;
 
         try {
             await deleteProduct(id);

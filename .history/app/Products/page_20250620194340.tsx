@@ -18,23 +18,17 @@ const Page = () => {
             getProducts(email)
             getCategories({ email })
         }
-    }, [user])
+    }, [user, products])
 
     const toggleDropdown = (productId) => {
         setActiveDropdown(activeDropdown === productId ? null : productId)
     }
 
-    const handleDeleteProduct = async (id: string) => {
+    const handleDeleteProduct = (id: string) => {
+        deleteProduct(id)
+        getProducts(user?.emailAddresses[0].emailAddress as string)
 
-
-        try {
-            await deleteProduct(id);
-            await getProducts(user?.emailAddresses[0].emailAddress as string);
-        } catch (error) {
-            console.error("Failed to delete product:", error);
-        }
-    };
-
+    }
 
     if (loading) {
         return (

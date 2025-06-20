@@ -5,6 +5,9 @@ import { useUser } from '@clerk/nextjs'
 import { Loader2, Trash2, Pencil, MoreVertical, Eye } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@radix-ui/react-dialog'
+import { DialogFooter, DialogHeader } from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
 const Page = () => {
     const { user } = useUser()
@@ -24,17 +27,11 @@ const Page = () => {
         setActiveDropdown(activeDropdown === productId ? null : productId)
     }
 
-    const handleDeleteProduct = async (id: string) => {
+    const handleDeleteProduct = (id: string) => {
+        deleteProduct(id)
+        getProducts(user?.emailAddresses[0].emailAddress as string)
 
-
-        try {
-            await deleteProduct(id);
-            await getProducts(user?.emailAddresses[0].emailAddress as string);
-        } catch (error) {
-            console.error("Failed to delete product:", error);
-        }
-    };
-
+    }
 
     if (loading) {
         return (
@@ -126,9 +123,27 @@ const Page = () => {
                                         <button className="bg-[#fc9c9e] hover:bg-[#f66f75] text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors duration-200">
                                             <Pencil size={12} /> Edit
                                         </button>
-                                        <button className="bg-[#f3e6d4] hover:bg-[#f1d0b5] text-[#802d32] p-1.5 rounded-lg transition-colors duration-200" onClick={() => handleDeleteProduct(product._id)}>
-                                            <Trash2 size={14} />
-                                        </button>
+                                        <Dialog>
+                                            <DialogTrigger className=' bg-[#fd6265] rounded-md p-2 px-2 cursor-pointer'>
+                                                <Trash2 size={20} />
+
+                                            </DialogTrigger>
+                                            <DialogContent className='bg-[#ece3ca] text-[#7c5b3b]'>
+                                                <DialogHeader>
+                                                    <DialogTitle className='text-xl font-bold'>Delete category</DialogTitle>
+                                                    <DialogDescription>
+                                                        Are you sure you want to delete {product.name} category
+                                                    </DialogDescription>
+                                                </DialogHeader>
+                                                <DialogFooter>
+                                                    <DialogClose asChild>
+                                                        <Button className='cursor-pointer' variant="outline">Cancel</Button>
+                                                    </DialogClose>
+                                                    <Button type="button" className='cursor-pointer bg-[#fd6265]' onClick={() => handleDeleteProduct(product._id)}>Delete</Button>
+                                                </DialogFooter>
+                                            </DialogContent>
+
+                                        </Dialog>
                                     </div>
                                 </div>
                             )

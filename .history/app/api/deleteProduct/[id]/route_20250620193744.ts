@@ -1,10 +1,10 @@
 import cloudinary from "@/libs/cloudinary";
 import { connectDb } from "@/libs/db";
 import Product from "@/models/product";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE({ params }: { params: { id: string } }) {
 
     try {
         await connectDb()

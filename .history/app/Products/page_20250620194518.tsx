@@ -25,16 +25,10 @@ const Page = () => {
     }
 
     const handleDeleteProduct = async (id: string) => {
+        await deleteProduct(id)
+        await getProducts(user?.emailAddresses[0].emailAddress as string)
 
-
-        try {
-            await deleteProduct(id);
-            await getProducts(user?.emailAddresses[0].emailAddress as string);
-        } catch (error) {
-            console.error("Failed to delete product:", error);
-        }
-    };
-
+    }
 
     if (loading) {
         return (

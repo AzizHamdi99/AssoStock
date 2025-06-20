@@ -89,7 +89,7 @@ export const useProductStore = create<ProductStore>((set) => ({
             }
         } catch (error) {
             console.error(error)
-            toast.error("Failed to delete Product")
+            toast.error("Failed to create category")
 
         }
     }
