@@ -64,7 +64,6 @@ export const useProductStore = create<ProductStore>((set) => ({
 
     },
     getProducts: async (email) => {
-        set({ loading: true })
         try {
             const res = await axios.get(`/api/getAllProducts/${email}`)
             if (res.status === 200) {
@@ -74,8 +73,6 @@ export const useProductStore = create<ProductStore>((set) => ({
         } catch (error) {
             console.error(error)
 
-        } finally {
-            set({ loading: false })
         }
 
     }

@@ -95,10 +95,10 @@ const Page = () => {
 
                                     <div>
                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${(product.quantity ?? 0) > 10
-                                            ? 'bg-green-100 text-green-800'
-                                            : (product.quantity ?? 0) > 0
-                                                ? 'bg-yellow-100 text-yellow-800'
-                                                : 'bg-red-100 text-red-800'
+                                                ? 'bg-green-100 text-green-800'
+                                                : (product.quantity ?? 0) > 0
+                                                    ? 'bg-yellow-100 text-yellow-800'
+                                                    : 'bg-red-100 text-red-800'
                                             }`}>
                                             {product.quantity ?? 0} {product.unit}
                                         </span>
@@ -155,6 +155,9 @@ const Page = () => {
                                     {activeDropdown === product._id && (
                                         <div className="absolute right-0 top-full mt-1 bg-white border border-[#f3d3bc] rounded-lg shadow-lg z-10 min-w-[140px]">
                                             <button className="w-full px-3 py-2 text-left hover:bg-[#f8f4f0] flex items-center gap-2 text-sm text-[#5c381b]">
+                                                <Eye size={14} /> View
+                                            </button>
+                                            <button className="w-full px-3 py-2 text-left hover:bg-[#f8f4f0] flex items-center gap-2 text-sm text-[#5c381b]">
                                                 <Pencil size={14} /> Edit
                                             </button>
                                             <button className="w-full px-3 py-2 text-left hover:bg-red-50 flex items-center gap-2 text-sm text-red-600">
@@ -195,10 +198,10 @@ const Page = () => {
                                         <div>
                                             <p className="text-xs text-[#a3886d] mb-1">Stock</p>
                                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${(product.quantity ?? 0) > 10
-                                                ? 'bg-green-100 text-green-800'
-                                                : (product.quantity ?? 0) > 0
-                                                    ? 'bg-yellow-100 text-yellow-800'
-                                                    : 'bg-red-100 text-red-800'
+                                                    ? 'bg-green-100 text-green-800'
+                                                    : (product.quantity ?? 0) > 0
+                                                        ? 'bg-yellow-100 text-yellow-800'
+                                                        : 'bg-red-100 text-red-800'
                                                 }`}>
                                                 {product.quantity ?? 0} {product.unit}
                                             </span>
