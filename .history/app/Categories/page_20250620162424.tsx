@@ -39,7 +39,19 @@ const Page = () => {
 
     const fetchCategory = async () => {
         if (!user) return
-        await getCategories({ email: user?.emailAddresses[0]?.emailAddress })
+        // setLoading(true)
+        // try {
+        //     const res = await axios.get(`/api/getCategories/${user.emailAddresses[0].emailAddress}`)
+        //     if (res.status === 200) {
+        //         setCategories(res.data.categories)
+        //     }
+        // } catch (error) {
+        //     console.error(error)
+        //     toast.error("Failed to load categories")
+        // } finally {
+        //     setLoading(false)
+        // }
+        await getCategories({ email: user.emailAddresses[0].emailAddress })
     }
 
     const handleCreateCategory = async (e: React.FormEvent) => {
@@ -47,23 +59,36 @@ const Page = () => {
         if (!user) return
 
         try {
-            await addCategory({ name: name, description: description, email: user?.emailAddresses[0]?.emailAddress })
-            setName("")
-            setDescription("")
-            fetchCategory()
+            const res = await axios.post('/api/addCategory', {
+                name,
+                description,
+                email: user.emailAddresses[0].emailAddress
+            })
 
+            if (res.status === 201) {
+                toast.success(res.data.message || "Category created!")
+                setName("")
+                setDescription("")
+                fetchCategory()
+            }
         } catch (error) {
             console.error(error)
-
+            toast.error("Failed to create category")
         }
     }
 
     const handelDeleteCategory = async (id: string) => {
         try {
-            await deleteCategory(id)
-            fetchCategory()
+            const res = await axios.delete(`/api/deleteCategory/${id}`)
+            if (res.status == 200) {
+                toast.success(res.data.message || "Category deleted!")
+                fetchCategory()
+
+            }
         } catch (error) {
             console.error(error)
+            toast.error("Failed to deleting category")
+
         }
 
     }

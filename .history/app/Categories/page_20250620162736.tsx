@@ -61,9 +61,14 @@ const Page = () => {
     const handelDeleteCategory = async (id: string) => {
         try {
             await deleteCategory(id)
+
             fetchCategory()
+
+
         } catch (error) {
             console.error(error)
+
+
         }
 
     }

@@ -48,6 +48,10 @@ const Page = () => {
 
         try {
             await addCategory({ name: name, description: description, email: user?.emailAddresses[0]?.emailAddress })
+
+
+
+
             setName("")
             setDescription("")
             fetchCategory()
@@ -60,10 +64,16 @@ const Page = () => {
 
     const handelDeleteCategory = async (id: string) => {
         try {
-            await deleteCategory(id)
-            fetchCategory()
+            const res = await axios.delete(`/api/deleteCategory/${id}`)
+            if (res.status == 200) {
+                toast.success(res.data.message || "Category deleted!")
+                fetchCategory()
+
+            }
         } catch (error) {
             console.error(error)
+            toast.error("Failed to deleting category")
+
         }
 
     }

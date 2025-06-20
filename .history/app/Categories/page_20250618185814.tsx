@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import toast from 'react-hot-toast'
-import { useCategoryStore } from '@/stores/useCategory'
 
 interface Category {
     _id: string
@@ -27,19 +26,29 @@ interface Category {
 
 const Page = () => {
     const { user } = useUser()
-    // const [categories, setCategories] = useState<Category[]>([])
-    // const [loading, setLoading] = useState(false)
+    const [categories, setCategories] = useState<Category[]>([])
+    const [loading, setLoading] = useState(false)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
 
     const [editId, setEditId] = useState<string | null>(null)
     const [editName, setEditName] = useState("")
     const [editDescription, setEditDescription] = useState("")
-    const { categories, addCategory, deleteCategory, getCategories, updateTask, loading } = useCategoryStore()
 
     const fetchCategory = async () => {
         if (!user) return
-        await getCategories({ email: user?.emailAddresses[0]?.emailAddress })
+        setLoading(true)
+        try {
+            const res = await axios.get(`/api/getCategories/${user.emailAddresses[0].emailAddress}`)
+            if (res.status === 200) {
+                setCategories(res.data.categories)
+            }
+        } catch (error) {
+            console.error(error)
+            toast.error("Failed to load categories")
+        } finally {
+            setLoading(false)
+        }
     }
 
     const handleCreateCategory = async (e: React.FormEvent) => {
@@ -47,23 +56,36 @@ const Page = () => {
         if (!user) return
 
         try {
-            await addCategory({ name: name, description: description, email: user?.emailAddresses[0]?.emailAddress })
-            setName("")
-            setDescription("")
-            fetchCategory()
+            const res = await axios.post('/api/addCategory', {
+                name,
+                description,
+                email: user.emailAddresses[0].emailAddress
+            })
 
+            if (res.status === 201) {
+                toast.success(res.data.message || "Category created!")
+                setName("")
+                setDescription("")
+                fetchCategory()
+            }
         } catch (error) {
             console.error(error)
-
+            toast.error("Failed to create category")
         }
     }
 
     const handelDeleteCategory = async (id: string) => {
         try {
-            await deleteCategory(id)
-            fetchCategory()
+            const res = await axios.delete(`/api/deleteCategory/${id}`)
+            if (res.status == 200) {
+                toast.success(res.data.message || "Category deleted!")
+                fetchCategory()
+
+            }
         } catch (error) {
             console.error(error)
+            toast.error("Failed to deleting category")
+
         }
 
     }
@@ -72,16 +94,8 @@ const Page = () => {
         if (!editId) return
         try {
             const res = await axios.put(`/api/updateCategory/${editId}`, { name: editName, description: editDescription })
-            if (res.status === 200) {
-                toast.success("Category updated successfully")
-                fetchCategory()
-                setEditId(null)
-                setEditName("")
-                setEditDescription("")
-            }
+
         } catch (error) {
-            console.error(error)
-            toast.error("Failed to update category")
 
         }
 
@@ -155,7 +169,7 @@ const Page = () => {
                                         <DialogClose asChild>
                                             <Button variant="outline" className='cursor-pointer'>Cancel</Button>
                                         </DialogClose>
-                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Update</Button>
+                                        <Button type="submit" onClick={handleUpadetCategory} className='bg-[#f7999b] cursor-pointer'>Create</Button>
                                     </DialogFooter>
                                 </DialogContent>
 
