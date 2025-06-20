@@ -27,7 +27,7 @@ const Page = () => {
         unit: "",
         categoryId: "",
         imageUrl: null as string | null,
-        associationId: ""
+        associationId:
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +69,12 @@ const Page = () => {
 
     const handleSubmit = () => {
         console.log("Product Data:", data)
-        if (user) {
+        /*if (user) {
             setData((prev) => ({
                 ...data,
                 associationId: user?.emailAddresses[0].emailAddress
             }))
-        }
+        }*/
 
     }
     const fetchCategory = async () => {
@@ -85,10 +85,6 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             fetchCategory()
-            setData((prev) => ({
-                ...data,
-                association: user?.emailAddresses[0].emailAddress
-            }))
         }
     }, [user])
 

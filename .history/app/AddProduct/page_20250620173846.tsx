@@ -85,10 +85,6 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             fetchCategory()
-            setData((prev) => ({
-                ...data,
-                association: user?.emailAddresses[0].emailAddress
-            }))
         }
     }, [user])
 

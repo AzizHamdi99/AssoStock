@@ -23,11 +23,10 @@ const Page = () => {
     const [data, setData] = useState({
         name: "",
         description: "",
-        price: null,
+        price: 0,
         unit: "",
-        categoryId: "",
+        category: "",
         imageUrl: null as string | null,
-        associationId: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +56,7 @@ const Page = () => {
     const handleSelectCategory = (value: string) => {
         setData((prev) => ({
             ...prev,
-            categoryId: value
+            category: value
         }))
     }
     const handleSelectUnit = (value: string) => {
@@ -69,13 +68,7 @@ const Page = () => {
 
     const handleSubmit = () => {
         console.log("Product Data:", data)
-        if (user) {
-            setData((prev) => ({
-                ...data,
-                associationId: user?.emailAddresses[0].emailAddress
-            }))
-        }
-
+        // Tu peux maintenant faire un POST vers une API
     }
     const fetchCategory = async () => {
         if (!user) return
@@ -85,10 +78,6 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             fetchCategory()
-            setData((prev) => ({
-                ...data,
-                association: user?.emailAddresses[0].emailAddress
-            }))
         }
     }, [user])
 
@@ -96,9 +85,9 @@ const Page = () => {
     return (
         <div className='mx-4 md:mx-6 xl:mx-32 my-10'>
             <p className='text-2xl font-bold text-[#5c381b]'>Create Product</p>
-            <div className='flex flex-col  ' >
-                <div className='flex flex-col gap-8 md:flex-row mt-6 font-medium'>
-                    <div className='flex flex-col gap-4 w-full max-w-md text-[#8f795a]'>
+            <div className='flex flex-col gap-5  ' >
+                <div className='flex flex-col gap-8 md:flex-row mt-6'>
+                    <div className='flex flex-col gap-4 w-full max-w-md'>
                         <input
                             type="text"
                             placeholder='Name'
@@ -123,26 +112,33 @@ const Page = () => {
                             onChange={handleChange}
                             className="border p-2 rounded"
                         />
-
+                        <input
+                            type="text"
+                            placeholder='Unit (e.g. kg, piece)'
+                            name="unit"
+                            value={data.unit}
+                            onChange={handleChange}
+                            className="border p-2 rounded"
+                        />
                         <Select onValueChange={handleSelectCategory}>
-                            <SelectTrigger className="w-full cursor-pointer">
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select Category" />
                             </SelectTrigger>
-                            <SelectContent className='bg-[#f3e6d4]'>
+                            <SelectContent>
                                 {categories?.map((cat) => (
-                                    <SelectItem key={cat._id} value={cat._id} className='cursor-pointer hover:text-[#8f795a]'>
+                                    <SelectItem key={cat._id} value={cat.name}>
                                         {cat.name}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
                         <Select onValueChange={handleSelectUnit}>
-                            <SelectTrigger className="w-full cursor-pointer">
+                            <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Select Unit" />
                             </SelectTrigger>
-                            <SelectContent className='bg-[#f3e6d4]'>
+                            <SelectContent>
                                 {units?.map((unit, i) => (
-                                    <SelectItem key={i} value={unit} className='cursor-pointer hover:text-[#8f795a]'>
+                                    <SelectItem key={i} value={unit}>
                                         {unit}
                                     </SelectItem>
                                 ))}
@@ -152,8 +148,8 @@ const Page = () => {
 
                     </div>
 
-                    <div className="flex flex-col gap-4">
-                        <div className='p-12 max-w-md border-[#e2b1a1] border-2 rounded-xl md:p-22 flex items-center justify-center'>
+                    <div className="flex flex-col  gap-4">
+                        <div className='p-12 border-[#e2b1a1] border-2 rounded-xl lg:p-22 flex items-center justify-center'>
                             <div className="relative">
                                 <Image
                                     src={selectedImg || "/empty.webp"}
@@ -161,7 +157,7 @@ const Page = () => {
                                     height={100}
                                     alt="Product preview"
                                     className="rounded-full border object-cover"
-                                    style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                                    style={{ width: "100px", height: "100px", objectFit: "cover" }}
                                 />
                                 <label
                                     htmlFor="avatar-upload"
@@ -178,7 +174,7 @@ const Page = () => {
                                 </label>
                             </div>
                         </div>
-
+                        <p className="text-sm text-gray-600">Upload product image</p>
                     </div>
                 </div>
                 <Button onClick={handleSubmit} className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32]'>Create Product</Button>

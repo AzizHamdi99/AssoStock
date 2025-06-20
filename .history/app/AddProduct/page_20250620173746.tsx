@@ -27,7 +27,6 @@ const Page = () => {
         unit: "",
         categoryId: "",
         imageUrl: null as string | null,
-        associationId: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,10 +84,6 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             fetchCategory()
-            setData((prev) => ({
-                ...data,
-                association: user?.emailAddresses[0].emailAddress
-            }))
         }
     }, [user])
 

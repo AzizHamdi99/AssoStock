@@ -25,9 +25,8 @@ const Page = () => {
         description: "",
         price: null,
         unit: "",
-        categoryId: "",
+
         imageUrl: null as string | null,
-        associationId: ""
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +56,7 @@ const Page = () => {
     const handleSelectCategory = (value: string) => {
         setData((prev) => ({
             ...prev,
-            categoryId: value
+            category: value
         }))
     }
     const handleSelectUnit = (value: string) => {
@@ -69,13 +68,7 @@ const Page = () => {
 
     const handleSubmit = () => {
         console.log("Product Data:", data)
-        if (user) {
-            setData((prev) => ({
-                ...data,
-                associationId: user?.emailAddresses[0].emailAddress
-            }))
-        }
-
+        // Tu peux maintenant faire un POST vers une API
     }
     const fetchCategory = async () => {
         if (!user) return
@@ -85,10 +78,6 @@ const Page = () => {
     useEffect(() => {
         if (user) {
             fetchCategory()
-            setData((prev) => ({
-                ...data,
-                association: user?.emailAddresses[0].emailAddress
-            }))
         }
     }, [user])
 
