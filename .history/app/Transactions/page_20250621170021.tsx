@@ -35,7 +35,6 @@ const page = () => {
         <div>
 
 
-
         </div>
     )
 }

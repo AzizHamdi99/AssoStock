@@ -62,9 +62,6 @@ export const useTransactionStore = create<TransactionsStore>((set) => ({
             toast.error("Failed to fetch transactions")
 
         }
-        finally {
-            set({ loading: false })
-        }
 
     }
 

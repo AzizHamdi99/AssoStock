@@ -71,8 +71,6 @@ const Navbar = () => {
             }
 
             await reffilStock(selected?._id, data)
-            setSelectedProduct("")
-            setQte(1)
         } catch (error) {
             console.log(error)
 

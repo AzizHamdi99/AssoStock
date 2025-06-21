@@ -15,7 +15,7 @@ interface Transaction {
 
 
 interface TransactionsStore {
-    transactions: Transaction[] | null
+    Transactions: Transaction[] | null
 
     loading: boolean,
     reffilStock: (id: string | undefined, data: {
@@ -31,7 +31,7 @@ interface TransactionsStore {
 }
 
 export const useTransactionStore = create<TransactionsStore>((set) => ({
-    transactions: null,
+    Transactions: null,
     loading: true,
 
     reffilStock: async (id, data) => {
@@ -55,15 +55,12 @@ export const useTransactionStore = create<TransactionsStore>((set) => ({
             const res = await axios.get(`/api/getTransactions/${email}`)
             console.log(res)
             if (res.status === 200) {
-                set({ transactions: res.data })
+                //set({Transactions:res.data})
             }
         } catch (error) {
             console.error(error)
             toast.error("Failed to fetch transactions")
 
-        }
-        finally {
-            set({ loading: false })
         }
 
     }
