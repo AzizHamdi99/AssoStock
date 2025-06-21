@@ -64,7 +64,7 @@ const Navbar = () => {
     const handelRefillstock = async () => {
         try {
             const data = {
-                type: "plus",
+                type: "Plus",
                 associationEmail: user?.emailAddresses[0]?.emailAddress,
                 quantity: qte
 
@@ -72,7 +72,6 @@ const Navbar = () => {
 
             await reffilStock(selected?._id, data)
         } catch (error) {
-            console.log(error)
 
         }
     }
@@ -123,7 +122,7 @@ const Navbar = () => {
 
                 {/* Desktop Nav */}
                 <div className="hidden xl:flex items-center gap-3">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} handelRefillstock={handelRefillstock} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
                 </div>
 
                 {/* User Button always visible */}
@@ -135,7 +134,7 @@ const Navbar = () => {
             {/* Mobile Nav */}
             {isOpen && (
                 <div className="xl:hidden px-6 pb-4 flex flex-col gap-4">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} handelRefillstock={handelRefillstock} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
                 </div>
             )}
         </nav>
@@ -145,7 +144,7 @@ const Navbar = () => {
 const NavItems = ({ pathName, products, categories, selectedProduct,
     setSelectedProduct,
     qte,
-    setQte, selected, category, handelRefillstock }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any, handelRefillstock: any }) => (
+    setQte, selected, category }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any }) => (
 
     <>
         <NavLink icon={LayoutDashboard} label="Dashboard" link="/" pathName={pathName} />
@@ -211,14 +210,13 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             id="link"
                             type='number'
                             value={qte} onChange={(e) => setQte(Number(e.target.value))}
-                            min={1}
 
                         />
                     </div>
                 </div>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer' onClick={handelRefillstock}>
+                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer'>
                             Add to stock
                         </Button>
                     </DialogClose>

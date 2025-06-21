@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const transactionSchema = new mongoose.Schema({
     type: {
-        type: String, enum: ["plus", "mines"]
+        type: String, enum: ["plus", "Mines"]
     },
     quantity: {
         type: Number

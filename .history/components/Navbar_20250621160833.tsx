@@ -64,7 +64,7 @@ const Navbar = () => {
     const handelRefillstock = async () => {
         try {
             const data = {
-                type: "plus",
+                type: "Plus",
                 associationEmail: user?.emailAddresses[0]?.emailAddress,
                 quantity: qte
 

@@ -11,7 +11,7 @@ import {
     Warehouse,
     Menu,
     X,
-
+    Image,
 } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -41,8 +41,6 @@ import { useProductStore } from '@/stores/useProduct'
 import { useCategoryStore } from '@/stores/useCategory'
 import { EmailAddress } from '@clerk/nextjs/server'
 import Product from '@/models/product'
-import Image from 'next/image'
-import { useTransactionStore } from '@/stores/useTransaction'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -52,30 +50,12 @@ const Navbar = () => {
     const { categories, getCategories } = useCategoryStore()
     //console.log(email, name)
     const [selectedProduct, setSelectedProduct] = useState<string>("")
-    const [qte, setQte] = useState<number>(1)
+    const [qte, setQte] = useState<number>(0)
 
     const toggleMenu = () => setIsOpen(prev => !prev)
 
     const selected = products?.find((prod) => prod._id === selectedProduct)
     const category = categories?.find((cat: any) => cat._id === selected?.categoryId)
-
-    const { reffilStock } = useTransactionStore()
-
-    const handelRefillstock = async () => {
-        try {
-            const data = {
-                type: "plus",
-                associationEmail: user?.emailAddresses[0]?.emailAddress,
-                quantity: qte
-
-            }
-
-            await reffilStock(selected?._id, data)
-        } catch (error) {
-            console.log(error)
-
-        }
-    }
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -123,7 +103,7 @@ const Navbar = () => {
 
                 {/* Desktop Nav */}
                 <div className="hidden xl:flex items-center gap-3">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} handelRefillstock={handelRefillstock} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
                 </div>
 
                 {/* User Button always visible */}
@@ -135,7 +115,7 @@ const Navbar = () => {
             {/* Mobile Nav */}
             {isOpen && (
                 <div className="xl:hidden px-6 pb-4 flex flex-col gap-4">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} handelRefillstock={handelRefillstock} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
                 </div>
             )}
         </nav>
@@ -145,7 +125,7 @@ const Navbar = () => {
 const NavItems = ({ pathName, products, categories, selectedProduct,
     setSelectedProduct,
     qte,
-    setQte, selected, category, handelRefillstock }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any, handelRefillstock: any }) => (
+    setQte, selected, category }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any }) => (
 
     <>
         <NavLink icon={LayoutDashboard} label="Dashboard" link="/" pathName={pathName} />
@@ -158,7 +138,7 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
             <DialogTrigger asChild>
                 <Button variant="outline">Reffil Stock</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-[#ece3ca] text-[#794422] flex flex-col gap-3">
+            <DialogContent className="sm:max-w-md bg-[#ece3ca] text-[#794422]">
                 <DialogHeader>
                     <DialogTitle className='text-[#794422] font-bold'>Stock Management</DialogTitle>
                     <DialogDescription>
@@ -172,7 +152,7 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             <SelectTrigger className="w-full ">
                                 <SelectValue placeholder="Select a product" />
                             </SelectTrigger>
-                            <SelectContent className=' bg-[#f3e6d4] '>
+                            <SelectContent className=' bg-[#f3e6d4]'>
                                 {products?.map((p: any, i: number) => {
 
                                     return (
@@ -187,7 +167,7 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             </SelectContent>
                         </Select>
                         {selectedProduct && (
-                            <div className='flex items-center  border-[2px] w-full gap-4 border-[#f0d9ab] rounded-xl'>
+                            <div className='flex items-center  border-[1px] w-full gap-4 border-[#e9ddc5] rounded-xl'>
                                 <Image
                                     src={selected?.imageUrl || "/empty.webp"}
                                     width={80}
@@ -195,10 +175,10 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                                     alt={selected?.name}
                                     className="rounded-lg object-cover w-20 h-20 flex-shrink-0"
                                 />
-                                <div className='flex flex-col gap-1'>
+                                <div>
                                     <p className='text-[#794422] font-bold'>{selected?.name}</p>
-                                    <p className='text-[#ce5a12] p-1 bg-[#efd8bb] w-fit rounded-sm'>{category?.name}</p>
-                                    <p className='text-[#ce5a12] p-1 bg-[#efd8bb] w-fit rounded-sm'>{selected?.quantity} {selected?.unit}</p>
+                                    <p className='text-[#ba7142]'>{category?.name}</p>
+                                    <p className='text-[#ba7142]'>{selected?.quantity}{selected?.unit}</p>
 
                                 </div>
 
@@ -211,14 +191,13 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             id="link"
                             type='number'
                             value={qte} onChange={(e) => setQte(Number(e.target.value))}
-                            min={1}
 
                         />
                     </div>
                 </div>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer' onClick={handelRefillstock}>
+                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer'>
                             Add to stock
                         </Button>
                     </DialogClose>

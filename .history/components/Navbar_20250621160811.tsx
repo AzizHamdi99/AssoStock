@@ -64,7 +64,7 @@ const Navbar = () => {
     const handelRefillstock = async () => {
         try {
             const data = {
-                type: "plus",
+                type: "Plus",
                 associationEmail: user?.emailAddresses[0]?.emailAddress,
                 quantity: qte
 
@@ -211,14 +211,13 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             id="link"
                             type='number'
                             value={qte} onChange={(e) => setQte(Number(e.target.value))}
-                            min={1}
 
                         />
                     </div>
                 </div>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer' onClick={handelRefillstock}>
+                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer'>
                             Add to stock
                         </Button>
                     </DialogClose>
