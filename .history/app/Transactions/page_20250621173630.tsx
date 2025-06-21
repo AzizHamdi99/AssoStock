@@ -23,10 +23,6 @@ const page = () => {
         }
 
     }
-    const filteredTransactions = selectedProduct && selectedProduct !== "all"
-        ? transactions?.filter(t => t.productId === selectedProduct)
-        : transactions
-
     useEffect(() => {
         if (user) {
             fetchTransactions()
@@ -49,22 +45,24 @@ const page = () => {
                     <SelectTrigger className="w-[200px]">
                         <SelectValue placeholder="Select a product" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#f3e6d4]">
-                        <SelectItem value="all">All Products</SelectItem> {/* ✅ Not empty */}
-                        {products?.map((p) => (
-                            <SelectItem key={p._id} value={p._id}>
-                                {p.name}
-                            </SelectItem>
-                        ))}
+                    <SelectContent className=' bg-[#f3e6d4] '>
+                        {products?.map((p: any, i: number) => {
+
+
+                            return (
+                                <SelectItem key={p._id} value={p._id}>
+                                    {p?.name}
+                                </SelectItem>
+
+                            )
+                        })}
+
+
                     </SelectContent>
                 </Select>
-
             </div>
             <div className='flex flex-col gap-3 mt-5'>
-                {filteredTransactions?.length === 0 && (
-                    <p className='text-[#997051] text-center mt-4'>No transactions found.</p>
-                )}
-                {filteredTransactions?.map((transaction, key) => {
+                {transactions?.map((transaction, key) => {
                     const product = products?.find((p) => p._id === transaction.productId)
                     const category = categories?.find((cat) => cat._id === product?.categoryId)
                     return (
@@ -85,8 +83,8 @@ const page = () => {
 
 
                             </div>
-                            <div className=' items-end flex flex-col'>
-                                <div className={transaction.type === "plus" ? "flex items-center text-xl font-bold text-[#3a806e]" : "flex items-center text-[18px] font-bold text-[#d17b76]"}>
+                            <div>
+                                <div className='flex items-center text-[18px] font-medium'>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>

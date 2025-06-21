@@ -86,7 +86,7 @@ const page = () => {
 
                             </div>
                             <div className=' items-end flex flex-col'>
-                                <div className={transaction.type === "plus" ? "flex items-center text-xl font-bold text-[#3a806e]" : "flex items-center text-[18px] font-bold text-[#d17b76]"}>
+                                <div className={transaction.type === "plus" ? "flex items-center text-[18px] font-bold text-[#3a806e]" : "flex items-center text-[18px] font-bold text-[#d17b76]"}>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>
