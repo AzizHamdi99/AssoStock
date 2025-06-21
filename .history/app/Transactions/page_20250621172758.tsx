@@ -66,8 +66,8 @@ const page = () => {
                     const product = products?.find((p) => p._id === transaction.productId)
                     const category = categories?.find((cat) => cat._id === product?.categoryId)
                     return (
-                        <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-md'>
-                            <div className='flex gap-3 items-center'>
+                        <div key={key} className='flex items-center justify-between p-1'>
+                            <div className='flex gap-3'>
                                 <Image
                                     src={product?.imageUrl || "/empty.webp"}
                                     width={60}
@@ -75,20 +75,20 @@ const page = () => {
                                     alt={product?.name}
                                     className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                                 />
-                                <div className='flex flex-col gap-2'>
-                                    <p className='text-[#997051] font-bold text-xl'>{product?.name}</p>
-                                    <p className='text-[#cb713d] p-1 bg-[#edd8bb] text-center w-fit rounded-md'>{category?.name}</p>
+                                <div>
+                                    <p>{product?.name}</p>
+                                    <p>{category?.name}</p>
 
                                 </div>
 
 
                             </div>
                             <div>
-                                <div className='flex items-center text-[16px] font-medium'>
+                                <div className='flex gap-1'>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>
-                                <p className='text-[#997051] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
+                                <p>{createdDate(new Date(transaction?.createdAt))}</p>
 
 
                             </div>

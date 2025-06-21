@@ -1,6 +1,5 @@
 "use client"
 import { Select, SelectContent, SelectItem, SelectValue, SelectTrigger } from '@/components/ui/select'
-import { createdDate } from '@/libs/date'
 import { useCategoryStore } from '@/stores/useCategory'
 import { useProductStore } from '@/stores/useProduct'
 import { useTransactionStore } from '@/stores/useTransaction'
@@ -61,34 +60,24 @@ const page = () => {
                     </SelectContent>
                 </Select>
             </div>
-            <div className='flex flex-col gap-3 mt-5'>
+            <div>
                 {transactions?.map((transaction, key) => {
                     const product = products?.find((p) => p._id === transaction.productId)
                     const category = categories?.find((cat) => cat._id === product?.categoryId)
                     return (
-                        <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-md'>
-                            <div className='flex gap-3 items-center'>
+                        <div key={key}>
+                            <div>
                                 <Image
                                     src={product?.imageUrl || "/empty.webp"}
-                                    width={60}
-                                    height={60}
+                                    width={80}
+                                    height={80}
                                     alt={product?.name}
                                     className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                                 />
-                                <div className='flex flex-col gap-2'>
-                                    <p className='text-[#997051] font-bold text-xl'>{product?.name}</p>
-                                    <p className='text-[#cb713d] p-1 bg-[#edd8bb] text-center w-fit rounded-md'>{category?.name}</p>
+                                <div>
+                                    <p></p>
 
                                 </div>
-
-
-                            </div>
-                            <div>
-                                <div className='flex items-center text-[16px] font-medium'>
-                                    <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
-                                    <p>{transaction.quantity} {product?.unit}</p>
-                                </div>
-                                <p className='text-[#997051] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
 
 
                             </div>

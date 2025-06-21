@@ -84,7 +84,7 @@ const page = () => {
 
                             </div>
                             <div>
-                                <div className='flex items-center text-[16px] font-medium'>
+                                <div className='flex items-center'>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>

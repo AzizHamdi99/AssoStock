@@ -66,7 +66,7 @@ const page = () => {
                     const product = products?.find((p) => p._id === transaction.productId)
                     const category = categories?.find((cat) => cat._id === product?.categoryId)
                     return (
-                        <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-md'>
+                        <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5]'>
                             <div className='flex gap-3 items-center'>
                                 <Image
                                     src={product?.imageUrl || "/empty.webp"}
@@ -84,11 +84,11 @@ const page = () => {
 
                             </div>
                             <div>
-                                <div className='flex items-center text-[16px] font-medium'>
+                                <div className='flex items-center'>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>
-                                <p className='text-[#997051] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
+                                <p>{createdDate(new Date(transaction?.createdAt))}</p>
 
 
                             </div>

@@ -84,11 +84,11 @@ const page = () => {
 
                             </div>
                             <div>
-                                <div className='flex items-center text-[16px] font-medium'>
+                                <div className='flex items-center'>
                                     <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
                                     <p>{transaction.quantity} {product?.unit}</p>
                                 </div>
-                                <p className='text-[#997051] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
+                                <p className='text-[#ab8d69] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
 
 
                             </div>
