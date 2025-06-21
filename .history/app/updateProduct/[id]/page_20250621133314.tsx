@@ -14,15 +14,11 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Camera, Loader2 } from 'lucide-react'
-import { useProductStore } from '@/stores/useProduct'
-import { useRouter } from 'next/navigation'
 
 const Page = ({ params }: { params: { id: string } }) => {
     const { categories, getCategories } = useCategoryStore()
-    const { updateProduct } = useProductStore()
     const { user } = useUser()
     const id = params.id
-    const router = useRouter()
 
     const [data, setData] = useState({
         name: "",
@@ -72,32 +68,6 @@ const Page = ({ params }: { params: { id: string } }) => {
             ...prev,
             unit: value
         }))
-    }
-
-    const handleUpdate = async () => {
-        try {
-            await updateProduct(id, data)
-            router.push('/Products')
-            setData({
-                name: "",
-                description: "",
-                price: null,
-                unit: "",
-                categoryId: "",
-                imageUrl: null,
-                associationEmail: user?.emailAddresses[0]?.emailAddress || ""
-            });
-
-
-            setSelectedImg(null);
-
-        } catch (error) {
-            console.log(error)
-
-        }
-
-
-
     }
 
     const fetchCategory = async () => {
@@ -177,7 +147,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                         />
 
                         <Select onValueChange={handleSelectCategory} value={data.categoryId}>
-                            <SelectTrigger className="w-full cursor-pointer border p-2 rounded  text-left">
+                            <SelectTrigger className="w-full cursor-pointer border p-2 rounded bg-white text-left">
                                 <SelectValue placeholder="Select Category" />
                             </SelectTrigger>
                             <SelectContent className='bg-[#f3e6d4]'>
@@ -190,7 +160,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                         </Select>
 
                         <Select onValueChange={handleSelectUnit} value={data.unit}>
-                            <SelectTrigger className="w-full cursor-pointer border p-2 rounded  text-left">
+                            <SelectTrigger className="w-full cursor-pointer border p-2 rounded bg-white text-left">
                                 <SelectValue placeholder="Select Unit" />
                             </SelectTrigger>
                             <SelectContent className='bg-[#f3e6d4]'>
@@ -212,7 +182,6 @@ const Page = ({ params }: { params: { id: string } }) => {
                                     height={120}
                                     alt="Product preview"
                                     className="rounded-full border object-cover"
-                                    style={{ width: "120px", height: "120px", objectFit: "cover" }}
                                 />
                                 <label
                                     htmlFor="avatar-upload"
@@ -232,7 +201,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                     </div>
                 </div>
 
-                <Button className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-6' onClick={handleUpdate}>
+                <Button className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-6'>
                     Save Product
                 </Button>
             </div>

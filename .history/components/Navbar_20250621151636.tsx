@@ -167,7 +167,7 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             </SelectContent>
                         </Select>
                         {selectedProduct && (
-                            <div className='flex items-center  border-[1px] w-full gap-4 border-[#e9ddc5]'>
+                            <div className='flex items-center  border-[1px] w-full gap-4'>
                                 <Image
                                     src={selected?.imageUrl || "/empty.webp"}
                                     width={80}

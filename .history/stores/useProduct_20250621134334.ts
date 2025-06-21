@@ -49,7 +49,7 @@ interface ProductStore {
         categoryId: string,
         imageUrl?: string | null
 
-    }) => Promise<void>
+    })
 
 
 
@@ -99,18 +99,6 @@ export const useProductStore = create<ProductStore>((set) => ({
                 toast.success(res.data.message || "Product deleted!")
 
             }
-        } catch (error) {
-            console.error(error)
-            toast.error("Failed to delete Product")
-
-        }
-    }, updateProduct: async (id, data) => {
-        try {
-            const res = await axios.put(`/api/updateProduct/${id}`, data)
-            if (res.status === 200) {
-                toast.success(res.data.message || "Product Upadated!")
-            }
-
         } catch (error) {
             console.error(error)
             toast.error("Failed to delete Product")

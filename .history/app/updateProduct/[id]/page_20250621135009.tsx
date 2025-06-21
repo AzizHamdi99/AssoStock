@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Camera, Loader2 } from 'lucide-react'
 import { useProductStore } from '@/stores/useProduct'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 const Page = ({ params }: { params: { id: string } }) => {
     const { categories, getCategories } = useCategoryStore()
@@ -77,7 +77,6 @@ const Page = ({ params }: { params: { id: string } }) => {
     const handleUpdate = async () => {
         try {
             await updateProduct(id, data)
-            router.push('/Products')
             setData({
                 name: "",
                 description: "",
@@ -87,7 +86,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 imageUrl: null,
                 associationEmail: user?.emailAddresses[0]?.emailAddress || ""
             });
-
+            router.push('/Products')
 
             setSelectedImg(null);
 

@@ -55,7 +55,7 @@ const Navbar = () => {
     const toggleMenu = () => setIsOpen(prev => !prev)
 
     const selected = products?.find((prod) => prod._id === selectedProduct)
-    const category = categories?.find((cat: any) => cat._id === selected?.categoryId)
+    const category = categories?.find((cat: any) => cat._id === p.categoryId)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -157,7 +157,7 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
 
                                     return (
                                         <SelectItem key={p._id} value={p._id}>
-                                            {p?.name} - {category?.name}
+                                            {p.name} - {category.name}
                                         </SelectItem>
 
                                     )
@@ -167,18 +167,17 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             </SelectContent>
                         </Select>
                         {selectedProduct && (
-                            <div className='flex items-center  border-[1px] w-full gap-4 border-[#e9ddc5]'>
+                            <div>
                                 <Image
                                     src={selected?.imageUrl || "/empty.webp"}
                                     width={80}
                                     height={80}
-                                    alt={selected?.name}
+                                    alt={selected.name}
                                     className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                                 />
                                 <div>
-                                    <p className='text-[#794422] font-bold'>{selected?.name}</p>
-                                    <p>{category?.name}</p>
-                                    <p>{selected?.quantity}{selected?.unit}</p>
+                                    <p>{selected?.name}</p>
+                                    <p>{category}</p>
 
                                 </div>
 

@@ -55,7 +55,6 @@ const Navbar = () => {
     const toggleMenu = () => setIsOpen(prev => !prev)
 
     const selected = products?.find((prod) => prod._id === selectedProduct)
-    const category = categories?.find((cat: any) => cat._id === selected?.categoryId)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -103,7 +102,7 @@ const Navbar = () => {
 
                 {/* Desktop Nav */}
                 <div className="hidden xl:flex items-center gap-3">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} />
                 </div>
 
                 {/* User Button always visible */}
@@ -115,7 +114,7 @@ const Navbar = () => {
             {/* Mobile Nav */}
             {isOpen && (
                 <div className="xl:hidden px-6 pb-4 flex flex-col gap-4">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
+                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} />
                 </div>
             )}
         </nav>
@@ -125,7 +124,7 @@ const Navbar = () => {
 const NavItems = ({ pathName, products, categories, selectedProduct,
     setSelectedProduct,
     qte,
-    setQte, selected, category }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any }) => (
+    setQte, selected }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any }) => (
 
     <>
         <NavLink icon={LayoutDashboard} label="Dashboard" link="/" pathName={pathName} />
@@ -154,10 +153,10 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             </SelectTrigger>
                             <SelectContent className=' bg-[#f3e6d4]'>
                                 {products?.map((p: any, i: number) => {
-
+                                    const category = categories.find((cat: any) => cat._id === p.categoryId)
                                     return (
                                         <SelectItem key={p._id} value={p._id}>
-                                            {p?.name} - {category?.name}
+                                            {p.name} - {category.name}
                                         </SelectItem>
 
                                     )
@@ -167,18 +166,16 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                             </SelectContent>
                         </Select>
                         {selectedProduct && (
-                            <div className='flex items-center  border-[1px] w-full gap-4 border-[#e9ddc5]'>
+                            <div>
                                 <Image
                                     src={selected?.imageUrl || "/empty.webp"}
                                     width={80}
                                     height={80}
-                                    alt={selected?.name}
+                                    alt={selected.name}
                                     className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                                 />
                                 <div>
-                                    <p className='text-[#794422] font-bold'>{selected?.name}</p>
-                                    <p>{category?.name}</p>
-                                    <p>{selected?.quantity}{selected?.unit}</p>
+                                    <p>{selected?.name}</p>
 
                                 </div>
 

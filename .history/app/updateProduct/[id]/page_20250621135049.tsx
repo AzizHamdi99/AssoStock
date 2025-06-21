@@ -77,7 +77,6 @@ const Page = ({ params }: { params: { id: string } }) => {
     const handleUpdate = async () => {
         try {
             await updateProduct(id, data)
-            router.push('/Products')
             setData({
                 name: "",
                 description: "",
@@ -87,7 +86,7 @@ const Page = ({ params }: { params: { id: string } }) => {
                 imageUrl: null,
                 associationEmail: user?.emailAddresses[0]?.emailAddress || ""
             });
-
+            router.push('/Products')
 
             setSelectedImg(null);
 

@@ -11,7 +11,6 @@ import {
     Warehouse,
     Menu,
     X,
-    Image,
 } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -49,13 +48,8 @@ const Navbar = () => {
     const { getProducts, products } = useProductStore()
     const { categories, getCategories } = useCategoryStore()
     //console.log(email, name)
-    const [selectedProduct, setSelectedProduct] = useState<string>("")
-    const [qte, setQte] = useState<number>(0)
 
     const toggleMenu = () => setIsOpen(prev => !prev)
-
-    const selected = products?.find((prod) => prod._id === selectedProduct)
-    const category = categories?.find((cat: any) => cat._id === selected?.categoryId)
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -103,7 +97,7 @@ const Navbar = () => {
 
                 {/* Desktop Nav */}
                 <div className="hidden xl:flex items-center gap-3">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
+                    <NavItems pathName={pathName} products={products} categories={categories} />
                 </div>
 
                 {/* User Button always visible */}
@@ -115,18 +109,14 @@ const Navbar = () => {
             {/* Mobile Nav */}
             {isOpen && (
                 <div className="xl:hidden px-6 pb-4 flex flex-col gap-4">
-                    <NavItems pathName={pathName} products={products} categories={categories} selectedProduct={selectedProduct} setSelectedProduct={setSelectedProduct} qte={qte} setQte={setQte} selected={selected} category={category} />
+                    <NavItems pathName={pathName} products={products} categories={categories} />
                 </div>
             )}
         </nav>
     )
 }
 
-const NavItems = ({ pathName, products, categories, selectedProduct,
-    setSelectedProduct,
-    qte,
-    setQte, selected, category }: { pathName: string, products: any, categories: any, selectedProduct: any, setSelectedProduct: any, qte: any, setQte: any, selected: any, category: any }) => (
-
+const NavItems = ({ pathName, products, categories }: { pathName: string, products: any, categories: any }) => (
     <>
         <NavLink icon={LayoutDashboard} label="Dashboard" link="/" pathName={pathName} />
         <NavLink icon={ShoppingBasket} label="Products" link="/Products" pathName={pathName} />
@@ -134,13 +124,13 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
         <NavLink icon={ListTree} label="Categories" link="/Categories" pathName={pathName} />
         <NavLink icon={HandCoins} label="Sell" link="/Sells" pathName={pathName} />
         <NavLink icon={Receipt} label="Transactions" link="/Transactions" pathName={pathName} />
-        <Dialog >
+        <Dialog>
             <DialogTrigger asChild>
                 <Button variant="outline">Reffil Stock</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md bg-[#ece3ca] text-[#794422]">
+            <DialogContent className="sm:max-w-md bg-[#ece3ca]">
                 <DialogHeader>
-                    <DialogTitle className='text-[#794422] font-bold'>Stock Management</DialogTitle>
+                    <DialogTitle>Stock Management</DialogTitle>
                     <DialogDescription>
                         Add quantities to available products in your stock.
                     </DialogDescription>
@@ -148,16 +138,16 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
                 <div className="flex items-center gap-2">
                     <div className="grid flex-1 gap-2">
                         <p> Select a product</p>
-                        <Select value={selectedProduct} onValueChange={setSelectedProduct}>
+                        <Select>
                             <SelectTrigger className="w-full ">
-                                <SelectValue placeholder="Select a product" />
+                                <SelectValue placeholder="Theme" />
                             </SelectTrigger>
                             <SelectContent className=' bg-[#f3e6d4]'>
                                 {products?.map((p: any, i: number) => {
-
+                                    const category = categories.find((cat: any) => cat._id === p.categoryId)
                                     return (
                                         <SelectItem key={p._id} value={p._id}>
-                                            {p?.name} - {category?.name}
+                                            {p.name}-{category.name}
                                         </SelectItem>
 
                                     )
@@ -166,39 +156,19 @@ const NavItems = ({ pathName, products, categories, selectedProduct,
 
                             </SelectContent>
                         </Select>
-                        {selectedProduct && (
-                            <div className='flex items-center  border-[1px] w-full gap-4 border-[#e9ddc5]'>
-                                <Image
-                                    src={selected?.imageUrl || "/empty.webp"}
-                                    width={80}
-                                    height={80}
-                                    alt={selected?.name}
-                                    className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
-                                />
-                                <div>
-                                    <p className='text-[#794422] font-bold'>{selected?.name}</p>
-                                    <p>{category?.name}</p>
-                                    <p>{selected?.quantity}{selected?.unit}</p>
-
-                                </div>
-
-
-                            </div>
-                        )}
 
                         <p> Quantity to add</p>
                         <Input
                             id="link"
                             type='number'
-                            value={qte} onChange={(e) => setQte(Number(e.target.value))}
 
                         />
                     </div>
                 </div>
                 <DialogFooter className="sm:justify-start">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary" className='bg-[#e99291] text-[#9f4648] cursor-pointer'>
-                            Add to stock
+                        <Button type="button" variant="secondary">
+                            Close
                         </Button>
                     </DialogClose>
                 </DialogFooter>
