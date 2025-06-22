@@ -11,25 +11,25 @@ const page = () => {
 
 
     return (
-        <div className='mx-4 xl:mx-32 my-10'>
-            <div>
-                <Input className='outline-none' />
-                <div>
+        <div className='mx-4 md:mx-10 xl:mx-32 my-10 flex flex-col gap-4 md:flex-row'>
+            <div className='flex flex-col gap-3 md:w-1/3'>
+                <Input className='outline-none' placeholder='Search for a product' />
+                <div className='flex flex-col gap-5'>
                     {products?.map((p, i) => {
                         const cateory = categories?.find(c => c._id === p.categoryId)
                         return (
-                            <div key={i}>
+                            <div key={i} className='flex items-center gap-5 border-2 border-[#dad0b5] rounded-xl p-3'>
                                 <Image
                                     src={p?.imageUrl || "/empty.webp"}
-                                    width={80}
-                                    height={80}
+                                    width={100}
+                                    height={100}
                                     alt={p.name}
                                     className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                                 />
-                                <div>
-                                    <p>{p?.name}</p>
-                                    <p>{cateory?.name}</p>
-                                    <p>{p?.quantity} {p?.unit}</p>
+                                <div className='flex flex-col gap-1'>
+                                    <p className='text-[#794d2a] font-bold text-[18px]'>{p?.name}</p>
+                                    <p className='text-[#cb713d] p-1 bg-[#edd8bb] text-center w-fit rounded-md text-sm'>{cateory?.name}</p>
+                                    <p className='text-[#cb713d] p-1 bg-[#edd8bb] text-center w-fit rounded-md text-sm'>{p?.quantity} {p?.unit}</p>
                                     <div>
                                         <Plus />
                                     </div>
@@ -45,6 +45,7 @@ const page = () => {
 
             </div>
             <div>
+                hhh
 
             </div>
 

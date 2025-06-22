@@ -75,16 +75,6 @@ export const useTransactionStore = create<TransactionsStore>((set) => ({
 
     },
     donate: async (id, data) => {
-        try {
-            const res = await axios.put(`/api/donation/${id}`, data)
-
-        } catch (error) {
-            console.error(error)
-            toast.error("Failed to update stock")
-
-        }
-
-
 
     }
 

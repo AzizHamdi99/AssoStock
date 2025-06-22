@@ -8,11 +8,10 @@ import { useEffect } from "react";
 export default function Home() {
 
   return (
-    <div className="" >
+    <div >
       <Navbar />
-      <div>
-        hello
-      </div>
+      hello
+
     </div>
   );
 }
