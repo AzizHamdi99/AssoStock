@@ -105,12 +105,6 @@ export default function Home() {
 
           </div>
           <div>
-            <p>Product at risk</p>
-            {products?.filter((p) => p.quantity === 0).slice(5)?.map((prod) => {
-              return (
-
-              )
-            })}
 
           </div>
 

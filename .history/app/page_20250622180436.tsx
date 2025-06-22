@@ -95,22 +95,13 @@ export default function Home() {
             </div>
             <div>
               <p>2</p>
-              <p> Low stock (≤ 2) <span>{products?.filter((p) => p?.quantity <= 2 && p.quantity > 0).length} </span></p>
+              <p> Low stock (≤ 2) <span>{products?.filter((p) => p?.quantity <= 2).length} </span></p>
             </div>
             <div>
               <p>3</p>
-              <p> Out of stock <span>{products?.filter((p) => p?.quantity === 0).length} </span></p>
+              <p> Low stock (≤ 2) <span>{products?.filter((p) => p?.quantity <= 2).length} </span></p>
             </div>
 
-
-          </div>
-          <div>
-            <p>Product at risk</p>
-            {products?.filter((p) => p.quantity === 0).slice(5)?.map((prod) => {
-              return (
-
-              )
-            })}
 
           </div>
 

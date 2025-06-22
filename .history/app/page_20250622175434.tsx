@@ -21,10 +21,6 @@ export default function Home() {
   //   )
   // }
 
-  const totalStockValue = () => {
-    if (products) return products?.reduce((total, item) => total + item?.quantity * item?.price, 0)
-  }
-
   return (
     <div className="bg-[#ece3ca] min-h-screen">
       <Navbar />
@@ -59,7 +55,7 @@ export default function Home() {
             <div>
               <p>Total stock value</p>
               <div>
-                <p>${totalStockValue()?.toFixed(2)}</p>
+                <p></p>
                 <div>
                   <DollarSign />
                 </div>
@@ -80,37 +76,6 @@ export default function Home() {
 
 
             </div>
-
-          </div>
-
-        </div>
-
-        {/* right side */}
-        <div>
-          <div>
-
-            <div>
-              <p>1</p>
-              <p>Normal stock <span> {products?.filter((p) => p?.quantity > 2).length} </span></p>
-            </div>
-            <div>
-              <p>2</p>
-              <p> Low stock (≤ 2) <span>{products?.filter((p) => p?.quantity <= 2 && p.quantity > 0).length} </span></p>
-            </div>
-            <div>
-              <p>3</p>
-              <p> Out of stock <span>{products?.filter((p) => p?.quantity === 0).length} </span></p>
-            </div>
-
-
-          </div>
-          <div>
-            <p>Product at risk</p>
-            {products?.filter((p) => p.quantity === 0).slice(5)?.map((prod) => {
-              return (
-
-              )
-            })}
 
           </div>
 
