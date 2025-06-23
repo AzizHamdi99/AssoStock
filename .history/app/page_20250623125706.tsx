@@ -33,7 +33,7 @@ export default function Home() {
       <Navbar />
       <div className=" mx-4 flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
         {/* left size */}
-        <div className="md:w-2/3 flex flex-col gap-7">
+        <div className="md:w-2/3">
           <div className="grid grid-cols-2 gap-4">
             <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
               <p className="text-[#bca67f] font-bold">Products in Stock</p>
@@ -85,12 +85,8 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">5 categories with the most products</p>
-
-          </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5" >
-            <p className="text-[#664525] font-bold text-2xl">The last 10 transactions</p>
+            <p>The last 10 transactions</p>
             <div className='flex flex-col gap-3 mt-5'>
               {transactions?.length === 0 && (
                 <p className='text-[#997051] text-center mt-4'>No transactions found.</p>
@@ -99,14 +95,14 @@ export default function Home() {
                 const product = products?.find((p) => p._id === transaction.productId)
                 const category = categories?.find((cat) => cat._id === product?.categoryId)
                 return (
-                  <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-xl'>
+                  <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-md'>
                     <div className='flex gap-3 items-center'>
                       <Image
                         src={product?.imageUrl || "/empty.webp"}
                         width={60}
                         height={60}
                         alt={product?.name}
-                        className="rounded-lg object-cover w-15 h-15 border-2 border-[#f3d3bc] flex-shrink-0"
+                        className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
                       />
                       <div className='flex flex-col gap-2'>
                         <p className='text-[#997051] font-bold text-xl'>{product?.name}</p>

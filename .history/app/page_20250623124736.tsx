@@ -1,7 +1,6 @@
 "use client"
 
 import Navbar from "@/components/Navbar";
-import { createdDate } from "@/libs/date";
 import { useCategoryStore } from "@/stores/useCategory";
 import { useProductStore } from "@/stores/useProduct";
 import { useTransactionStore } from "@/stores/useTransaction";
@@ -33,7 +32,7 @@ export default function Home() {
       <Navbar />
       <div className=" mx-4 flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
         {/* left size */}
-        <div className="md:w-2/3 flex flex-col gap-7">
+        <div className="md:w-2/3">
           <div className="grid grid-cols-2 gap-4">
             <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
               <p className="text-[#bca67f] font-bold">Products in Stock</p>
@@ -85,53 +84,6 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">5 categories with the most products</p>
-
-          </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5" >
-            <p className="text-[#664525] font-bold text-2xl">The last 10 transactions</p>
-            <div className='flex flex-col gap-3 mt-5'>
-              {transactions?.length === 0 && (
-                <p className='text-[#997051] text-center mt-4'>No transactions found.</p>
-              )}
-              {transactions?.slice(0, 10)?.map((transaction, key) => {
-                const product = products?.find((p) => p._id === transaction.productId)
-                const category = categories?.find((cat) => cat._id === product?.categoryId)
-                return (
-                  <div key={key} className='flex items-center justify-between p-3 border-2 border-[#dad0b5] rounded-xl'>
-                    <div className='flex gap-3 items-center'>
-                      <Image
-                        src={product?.imageUrl || "/empty.webp"}
-                        width={60}
-                        height={60}
-                        alt={product?.name}
-                        className="rounded-lg object-cover w-15 h-15 border-2 border-[#f3d3bc] flex-shrink-0"
-                      />
-                      <div className='flex flex-col gap-2'>
-                        <p className='text-[#997051] font-bold text-xl'>{product?.name}</p>
-                        <p className='text-[#cb713d] p-1 bg-[#edd8bb] text-center w-fit rounded-md'>{category?.name}</p>
-
-                      </div>
-
-
-                    </div>
-                    <div className=' items-end flex flex-col'>
-                      <div className={transaction.type === "plus" ? "flex items-center text-xl font-bold text-[#3a806e]" : "flex items-center text-[18px] font-bold text-[#d17b76]"}>
-                        <p> {transaction.type === "plus" ? <p>+</p> : <p>-</p>} </p>
-                        <p>{transaction.quantity} {product?.unit}</p>
-                      </div>
-                      <p className='text-[#997051] font-medium'>{createdDate(new Date(transaction?.createdAt))}</p>
-
-
-                    </div>
-
-                  </div>
-                )
-              })}
-            </div>
-
-          </div>
 
         </div>
 
@@ -155,24 +107,24 @@ export default function Home() {
 
           </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">Products at risk</p>
-            <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1 border-b-2 border-[#ecd7cf] py-2 text-[#af8f6e] font-bold">
-              <p className="text-[#ece3ca]">.</p>
+            <p>Product at risk</p>
+            <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1 border-b-2 border-[#f3c4b3]">
+              <p>.</p>
               <p>Image</p>
               <p>Name</p>
               <p>Quantity</p>
             </div>
             {products?.filter((p) => p?.quantity === 0).slice(0, 5)?.map((prod, i) => {
               return (
-                <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1 border-b-2 border-[#ecd7cf] py-2 text-[#a08871] font-semibold">
+                <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1">
 
-                  <p className="font-bold">{i + 1}</p>
+                  <p>{i + 1}</p>
                   <Image
                     src={prod?.imageUrl || "/empty.webp"}
                     width={40}
                     height={40}
                     alt={prod?.name}
-                    className="rounded-lg object-cover h-10 w-10 border-2 border-[#f3d3bc] flex-shrink-0"
+                    className="rounded-lg object-cover border-2 border-[#f3d3bc] flex-shrink-0"
                   />
                   <p>{prod?.name}</p>
                   <p>{prod.quantity} {prod?.unit}</p>

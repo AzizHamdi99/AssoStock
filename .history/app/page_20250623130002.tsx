@@ -85,10 +85,6 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">5 categories with the most products</p>
-
-          </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5" >
             <p className="text-[#664525] font-bold text-2xl">The last 10 transactions</p>
             <div className='flex flex-col gap-3 mt-5'>

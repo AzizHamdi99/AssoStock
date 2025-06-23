@@ -85,10 +85,6 @@ export default function Home() {
             </div>
 
           </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">5 categories with the most products</p>
-
-          </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5" >
             <p className="text-[#664525] font-bold text-2xl">The last 10 transactions</p>
             <div className='flex flex-col gap-3 mt-5'>
@@ -155,7 +151,7 @@ export default function Home() {
 
           </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
-            <p className="text-[#664525] font-bold text-2xl">Products at risk</p>
+            <p className="text-[#664525] font-bold text-3xl">Products at risk</p>
             <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1 border-b-2 border-[#ecd7cf] py-2 text-[#af8f6e] font-bold">
               <p className="text-[#ece3ca]">.</p>
               <p>Image</p>
