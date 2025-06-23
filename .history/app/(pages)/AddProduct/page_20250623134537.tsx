@@ -200,7 +200,7 @@ const Page = () => {
 
                     </div>
                 </div>
-                <Button disabled={!data.imageUrl} onClick={handleSubmit} className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-5'>Create Product</Button>
+                <Button onClick={handleSubmit} className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-5'>Create Product</Button>
             </div>
         </div>
     )

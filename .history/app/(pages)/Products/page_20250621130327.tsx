@@ -61,7 +61,7 @@ const Page = () => {
             <div className="hidden lg:block">
                 <div className="bg-white rounded-xl shadow-sm border border-[#f3d3bc] overflow-hidden">
                     {/* Table Header */}
-                    <div className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] bg-gradient-to-r from-[#f8f4f0] gap-2 to-[#f3e6d4] px-6 py-4 font-semibold text-[#5c381b] text-sm border-b border-[#f3d3bc]">
+                    <div className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] bg-gradient-to-r from-[#f8f4f0] to-[#f3e6d4] px-6 py-4 font-semibold text-[#5c381b] text-sm border-b border-[#f3d3bc]">
                         <span>#</span>
                         <span>Image</span>
                         <span>Product Name</span>
@@ -80,7 +80,7 @@ const Page = () => {
                             return (
                                 <div
                                     key={product._id}
-                                    className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] items-center px-6 py-4 gap-2 hover:bg-[#fefcfa] transition-colors duration-200"
+                                    className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] items-center px-6 py-4 hover:bg-[#fefcfa] transition-colors duration-200"
                                 >
                                     <span className="text-[#a3886d] font-medium">{index + 1}</span>
 

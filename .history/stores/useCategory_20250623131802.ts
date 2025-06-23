@@ -80,12 +80,11 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
         try {
             const res = await axios.get(`/api/getCategories/${data.email}`)
             if (res.status === 200) {
-                set({ categories: res.data.categories, loading: false })
+                set({ categories: res.data.categories })
             }
         } catch (error) {
             console.error(error)
             toast.error("Failed to load categories")
-            set({ loading: false });
         }
 
 

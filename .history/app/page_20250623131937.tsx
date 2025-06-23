@@ -32,13 +32,13 @@ export default function Home() {
     .slice(0, 5);
 
 
-  // if (!isLoading) {
-  //   return (
-  //     <div className="w-full flex justify-center items-center h-40">
-  //       <Loader2 className="animate-spin w-8 h-8 text-[#f7999b]" />
-  //     </div>
-  //   )
-  // }
+  if (!isLoading) {
+    return (
+      <div className="w-full flex justify-center items-center h-40">
+        <Loader2 className="animate-spin w-8 h-8 text-[#f7999b]" />
+      </div>
+    )
+  }
 
   const totalStockValue = () => {
     if (products) return products?.reduce((total, item) => total + item?.quantity * item?.price, 0)

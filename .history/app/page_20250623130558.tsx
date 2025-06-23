@@ -12,11 +12,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 
 
 export default function Home() {
-  const { categories, loading: loadingCategories } = useCategoryStore()
-  const { products, loading: loadingProducts } = useProductStore()
-  const { transactions, loading: loadingTransactions } = useTransactionStore()
-
-  const isLoading = loadingCategories || loadingProducts || loadingTransactions;
+  const { categories, loading } = useCategoryStore()
+  const { products } = useProductStore()
+  const { transactions } = useTransactionStore()
   // Get category name and how many products it contains
   const categoryProductCounts = categories?.map(category => {
     const count = products?.filter(product => product.categoryId === category._id).length;
@@ -32,7 +30,7 @@ export default function Home() {
     .slice(0, 5);
 
 
-  // if (!isLoading) {
+  // if (!categories || !products || !transactions) {
   //   return (
   //     <div className="w-full flex justify-center items-center h-40">
   //       <Loader2 className="animate-spin w-8 h-8 text-[#f7999b]" />
@@ -47,7 +45,7 @@ export default function Home() {
 
 
   return (
-    <div className="bg-[#ece3ca]  min-h-screen flex flex-col overflow-x-hidden">
+    <div className="bg-[#ece3ca] min-h-screen">
       <Navbar />
       <div className=" mx-4 flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
         {/* left size */}
@@ -105,21 +103,6 @@ export default function Home() {
           </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
             <p className="text-[#664525] font-bold text-2xl">5 categories with the most products</p>
-            {topCategories?.length === 0 ? (
-              <p className="text-[#997051] text-center mt-4">No category data found.</p>
-            ) : (
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={topCategories} margin={{ top: 20, right: 20, left: 0, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" tick={{ fill: '#815232', fontWeight: 'bold' }} />
-                  <YAxis allowDecimals={false} tick={{ fill: '#815232', fontWeight: 'bold' }} />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#f0c3b5">
-                    <LabelList dataKey="count" position="top" fill="#73391d" fontWeight="bold" />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            )}
 
           </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5" >

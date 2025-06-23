@@ -12,11 +12,9 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGri
 
 
 export default function Home() {
-  const { categories, loading: loadingCategories } = useCategoryStore()
-  const { products, loading: loadingProducts } = useProductStore()
-  const { transactions, loading: loadingTransactions } = useTransactionStore()
-
-  const isLoading = loadingCategories || loadingProducts || loadingTransactions;
+  const { categories, loading } = useCategoryStore()
+  const { products } = useProductStore()
+  const { transactions } = useTransactionStore()
   // Get category name and how many products it contains
   const categoryProductCounts = categories?.map(category => {
     const count = products?.filter(product => product.categoryId === category._id).length;
@@ -32,7 +30,7 @@ export default function Home() {
     .slice(0, 5);
 
 
-  // if (!isLoading) {
+  // if (!categories || !products || !transactions) {
   //   return (
   //     <div className="w-full flex justify-center items-center h-40">
   //       <Loader2 className="animate-spin w-8 h-8 text-[#f7999b]" />
@@ -47,7 +45,7 @@ export default function Home() {
 
 
   return (
-    <div className="bg-[#ece3ca]  min-h-screen flex flex-col overflow-x-hidden">
+    <div className="bg-[#ece3ca] min-h-screen">
       <Navbar />
       <div className=" mx-4 flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
         {/* left size */}

@@ -85,7 +85,6 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
         } catch (error) {
             console.error(error)
             toast.error("Failed to load categories")
-            set({ loading: false });
         }
 
 

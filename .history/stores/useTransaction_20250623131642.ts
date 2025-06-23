@@ -63,15 +63,16 @@ export const useTransactionStore = create<TransactionsStore>((set) => ({
             const res = await axios.get(`/api/getTransactions/${email}`)
             console.log(res)
             if (res.status === 200) {
-                set({ transactions: res.data, loading: false })
+                set({ transactions: res.data })
             }
         } catch (error) {
             console.error(error)
             toast.error("Failed to fetch transactions")
-            set({ loading: false });
 
         }
-
+        finally {
+            set({ loading: false })
+        }
 
     },
     donate: async (id, data) => {

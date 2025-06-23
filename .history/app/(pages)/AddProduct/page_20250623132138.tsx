@@ -25,7 +25,7 @@ const Page = () => {
     const [data, setData] = useState({
         name: "",
         description: "",
-        price: "",
+        price: null,
         unit: "",
         categoryId: "",
         imageUrl: null as string | null,
@@ -72,16 +72,13 @@ const Page = () => {
     const handleSubmit = async () => {
         console.log("Product Data:", data);
         try {
-            await addProduct({
-                ...data,
-                price: parseFloat(data.price)
-            });
+            await addProduct(data);
 
 
             setData({
                 name: "",
                 description: "",
-                price: "",
+                price: null,
                 unit: "",
                 categoryId: "",
                 imageUrl: null,
@@ -143,7 +140,7 @@ const Page = () => {
                             className="border p-2 rounded"
                         />
 
-                        <Select value={data.categoryId} onValueChange={handleSelectCategory}>
+                        <Select onValueChange={handleSelectCategory}>
                             <SelectTrigger className="w-full cursor-pointer">
                                 <SelectValue placeholder="Select Category" />
                             </SelectTrigger>
@@ -155,7 +152,7 @@ const Page = () => {
                                 ))}
                             </SelectContent>
                         </Select>
-                        <Select value={data.unit} onValueChange={handleSelectUnit}>
+                        <Select onValueChange={handleSelectUnit}>
                             <SelectTrigger className="w-full cursor-pointer">
                                 <SelectValue placeholder="Select Unit" />
                             </SelectTrigger>
@@ -200,7 +197,7 @@ const Page = () => {
 
                     </div>
                 </div>
-                <Button disabled={!data.imageUrl} onClick={handleSubmit} className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-5'>Create Product</Button>
+                <Button onClick={handleSubmit} className='bg-[#de8a8b] max-w-md h-10 cursor-pointer text-[#802d32] mt-5'>Create Product</Button>
             </div>
         </div>
     )

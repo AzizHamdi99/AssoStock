@@ -72,7 +72,7 @@ export const useProductStore = create<ProductStore>((set) => ({
             }
         } catch (error) {
             console.error(error)
-            toast.error("Failed to create product")
+            toast.error("Failed to create category")
         }
 
     },

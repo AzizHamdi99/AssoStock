@@ -80,7 +80,7 @@ const Page = () => {
                             return (
                                 <div
                                     key={product._id}
-                                    className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] items-center px-6 py-4 gap-2 hover:bg-[#fefcfa] transition-colors duration-200"
+                                    className="grid grid-cols-[0.3fr_0.4fr_1.2fr_1.5fr_0.6fr_0.6fr_1fr_0.8fr] items-center px-6 py-4 hover:bg-[#fefcfa] transition-colors duration-200"
                                 >
                                     <span className="text-[#a3886d] font-medium">{index + 1}</span>
 
