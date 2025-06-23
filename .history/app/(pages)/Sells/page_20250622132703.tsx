@@ -1,0 +1,15 @@
+import { useProductStore } from '@/stores/useProduct'
+import React from 'react'
+
+const page = () => {
+    const { products } = useProductStore()
+
+
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+export default page
