@@ -30,11 +30,11 @@ export default function Home() {
   return (
     <div className="bg-[#ece3ca] min-h-screen">
       <Navbar />
-      <div className=" mx-4 flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
+      <div className="flex flex-col gap-5 md:flex-row md:mx-10 lg:mx-32 my-10">
         {/* left size */}
-        <div className="md:w-2/3">
+        <div className="w-2/3">
           <div className="grid grid-cols-2 gap-4">
-            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
+            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2">
               <p className="text-[#bca67f] font-bold">Products in Stock</p>
               <div className="flex items-center justify-between">
                 <p className="text-[#71300f] font-bold text-4xl">{products?.length}</p>
@@ -46,7 +46,7 @@ export default function Home() {
 
 
             </div>
-            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
+            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2">
               <p className="text-[#bca67f] font-bold">Number of categories</p>
               <div className="flex items-center justify-between">
                 <p className="text-[#71300f] font-bold text-4xl">{categories?.length}</p>
@@ -58,7 +58,7 @@ export default function Home() {
 
 
             </div>
-            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
+            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2">
               <p className="text-[#bca67f] font-bold">Total stock value</p>
               <div className="flex items-center justify-between">
                 <p className="text-[#71300f] font-bold text-4xl">${totalStockValue()?.toFixed(2)}</p>
@@ -70,7 +70,7 @@ export default function Home() {
 
 
             </div>
-            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2 shadow-sm">
+            <div className="border-2 border-[#e2d9be] p-4 rounded-xl flex flex-col gap-2">
               <p className="text-[#bca67f] font-bold">Total transactions</p>
               <div className="flex items-center justify-between">
                 <p className="text-[#71300f] font-bold text-4xl">{transactions?.length}</p>
@@ -88,27 +88,27 @@ export default function Home() {
         </div>
 
         {/* right side */}
-        <div className="md:w-1/3 flex flex-col gap-4">
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
+        <div className="md:w-1/3">
+          <div>
 
-            <div className="flex gap-4 items-center">
-              <div className="w-10 h-10 flex items-center justify-center bg-[#fe9f9e] rounded-full text-[#c46564] font-bold">1</div>
-              <p className="text-[#815232] font-bold">Normal stock <span className="ml-4 px-3 py-0.5 rounded-sm bg-[#dbdac6] text-[#11b61f]"> {products?.filter((p) => p?.quantity > 2).length} </span></p>
+            <div>
+              <p>1</p>
+              <p>Normal stock <span> {products?.filter((p) => p?.quantity > 2).length} </span></p>
             </div>
-            <div className="flex gap-4 items-center">
-              <div className="w-10 h-10 flex items-center justify-center bg-[#fe9f9e] rounded-full text-[#c46564] font-bold">2</div>
-              <p className="text-[#815232] font-bold"> Low stock (≤ 2) <span className="ml-4 px-3 py-0.5 rounded-sm bg-[#f0d7bd] text-[#988f0d]">{products?.filter((p) => p?.quantity <= 2 && p.quantity > 0).length} </span></p>
+            <div>
+              <p>2</p>
+              <p> Low stock (≤ 2) <span>{products?.filter((p) => p?.quantity <= 2 && p.quantity > 0).length} </span></p>
             </div>
-            <div className="flex gap-4 items-center">
-              <p className="w-10 h-10 flex items-center justify-center bg-[#fe9f9e] rounded-full text-[#c46564] font-bold">3</p>
-              <p className="text-[#815232] font-bold"> Out of stock <span className="ml-4 px-3 py-0.5 rounded-sm bg-[#f1dbc2] text-[#df0000]">{products?.filter((p) => p?.quantity === 0).length} </span></p>
+            <div>
+              <p>3</p>
+              <p> Out of stock <span>{products?.filter((p) => p?.quantity === 0).length} </span></p>
             </div>
 
 
           </div>
-          <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
+          <div>
             <p>Product at risk</p>
-            <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1">
+            <div>
               <p>.</p>
               <p>Image</p>
               <p>Name</p>
@@ -116,22 +116,21 @@ export default function Home() {
             </div>
             {products?.filter((p) => p?.quantity === 0).slice(0, 5)?.map((prod, i) => {
               return (
-                <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1">
-
-                  <p>{i + 1}</p>
-                  <Image
-                    src={prod?.imageUrl || "/empty.webp"}
-                    width={40}
-                    height={40}
-                    alt={prod?.name}
-                    className="rounded-lg object-cover border-2 border-[#f3d3bc] flex-shrink-0"
-                  />
-                  <p>{prod?.name}</p>
-                  <p>{prod.quantity} {prod?.unit}</p>
-
-
+                <div>
+                  <div>
+                    <p>{i + 1}</p>
+                    <Image
+                      src={prod?.imageUrl || "/empty.webp"}
+                      width={80}
+                      height={80}
+                      alt={prod?.name}
+                      className="rounded-lg object-cover w-20 h-20 border-2 border-[#f3d3bc] flex-shrink-0"
+                    />
+                    <p>{prod?.name}</p>
+                    <p>{prod.quantity} {prod?.unit}</p>
 
 
+                  </div>
 
                 </div>
 

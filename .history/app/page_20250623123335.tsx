@@ -108,7 +108,7 @@ export default function Home() {
           </div>
           <div className="border-2 border-[#e2d9be] p-4 py-6 rounded-xl flex flex-col shadow-sm  gap-5">
             <p>Product at risk</p>
-            <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1">
+            <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr]">
               <p>.</p>
               <p>Image</p>
               <p>Name</p>
@@ -116,7 +116,7 @@ export default function Home() {
             </div>
             {products?.filter((p) => p?.quantity === 0).slice(0, 5)?.map((prod, i) => {
               return (
-                <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr] items-center gap-1">
+                <div className="grid grid-cols-[0.5fr_1fr_1.5fr_1fr]">
 
                   <p>{i + 1}</p>
                   <Image
