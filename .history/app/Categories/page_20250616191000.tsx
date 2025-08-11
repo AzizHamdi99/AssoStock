@@ -1,0 +1,111 @@
+'use client'
+import { useUser } from '@clerk/nextjs'
+import axios from 'axios'
+import { Loader2 } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button"
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import toast from 'react-hot-toast'
+
+const page = () => {
+    const { user } = useUser()
+
+    const [categories, setCategories] = useState()
+    const [loading, setLoading] = useState(false)
+    const [name, setName] = useState<string>("")
+    const [description, setDescription] = useState<string>("")
+    const fetchCategory = async () => {
+        if (!user) return
+        setLoading(true)
+        try {
+
+            const res = await axios.get(`/api/getCategories/${user?.emailAddresses[0].emailAddress}`)
+            console.log(res.data.categories)
+            if (res.status === 200) {
+                setCategories(res.data.categories)
+            }
+        } catch (error) {
+            console.log(error)
+
+        } finally {
+            setLoading(false)
+        }
+
+    }
+
+
+    const handleCreateCategory = async () => {
+        if (!user) return
+        try {
+            const res = await axios.post('/api/addCategory', { name, description, email: user?.emailAddresses[0].emailAddress })
+            if (res.status === 201) {
+                toast.success(res?.message)
+            }
+        } catch (error) {
+            console.log(error)
+
+        }
+    }
+
+    useEffect(() => {
+        fetchCategory()
+    }, [])
+
+    if (loading) {
+        return (<div className="w-full flex justify-center items-center h-40">
+            <Loader2 className="animate-spin w-8 h-8 text-[#f7999b]" />
+        </div>)
+    }
+    return (
+        <div className='md:mx-32 my-10'>
+            <Dialog>
+                <form onSubmit={handleCreateCategory}>
+                    <DialogTrigger asChild className=''>
+                        <Button variant="outline" className='bg-[#f7999b] '>Add Category</Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-[#ece3ca] text-[#7c5b3b]">
+                        <DialogHeader>
+                            <DialogTitle className='mb-1 font-bold'>Create new category</DialogTitle>
+
+                        </DialogHeader>
+                        <div className="grid gap-4 ">
+                            <div className="grid gap-3">
+
+                                <Input id="name-1" name="name" placeholder='Title' value={name} onChange={((e) => setName(e.target.value))} />
+                            </div>
+                            <div className="grid gap-3">
+
+                                <Input id="username-1" name="username" placeholder='Description' value={description} onChange={((e) => setDescription(e.target.value))} />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button variant="outline" className='cursor-pointer'>Cancel</Button>
+                            </DialogClose>
+                            <Button type="submit" className='bg-[#f7999b] cursor-pointer'>Create</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </form>
+            </Dialog>
+
+
+
+
+
+
+        </div>
+    )
+}
+
+export default page
