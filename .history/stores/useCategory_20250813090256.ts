@@ -8,7 +8,7 @@ interface Category {
     _id: string
     name: string
     description: string
-    // ...ajoute d'autres champs si besoin
+
 }
 
 
@@ -80,13 +80,12 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
         try {
             const res = await axios.get(`/api/getCategories/${data.email}`)
             if (res.status === 200) {
-                set({ categories: res.data.categories })
+                set({ categories: res.data.categories, loading: false })
             }
         } catch (error) {
             console.error(error)
             toast.error("Failed to load categories")
-        } finally {
-            set({ loading: false })
+            set({ loading: false });
         }
 
 

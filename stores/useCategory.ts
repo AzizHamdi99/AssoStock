@@ -8,7 +8,7 @@ interface Category {
     _id: string
     name: string
     description: string
-    // ...ajoute d'autres champs si besoin
+
 }
 
 
